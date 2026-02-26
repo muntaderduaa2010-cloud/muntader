@@ -1118,95 +1118,6 @@
             overflow-y: auto;
         }
 
-        /* نافذة رابط التصدير */
-        .export-link-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .export-link-modal.active {
-            display: flex;
-        }
-
-        .export-link-content {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            width: 500px;
-            max-width: 90%;
-            text-align: center;
-        }
-
-        .export-link-content h3 {
-            color: #ff8c00;
-            margin-bottom: 20px;
-            font-size: 22px;
-        }
-
-        .export-link-content p {
-            margin-bottom: 20px;
-            color: #666;
-            font-size: 16px;
-        }
-
-        .export-link-box {
-            background: #f8f9fa;
-            border: 2px solid #ffd700;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-            direction: ltr;
-            text-align: left;
-            font-size: 14px;
-            word-break: break-all;
-            color: #333;
-        }
-
-        .export-link-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .export-link-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .export-link-btn.copy {
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: white;
-        }
-
-        .export-link-btn.copy:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,140,0,0.3);
-        }
-
-        .export-link-btn.close {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .export-link-btn.close:hover {
-            background: #c0392b;
-        }
-
         /* تصدير البيانات */
         .export-options {
             display: grid;
@@ -1471,19 +1382,6 @@
         <div class="shooting-star" style="top: 10%; left: -100px; animation-delay: 2s;"></div>
         <div class="shooting-star" style="top: 30%; left: -100px; animation-delay: 5s;"></div>
         <div class="shooting-star" style="top: 50%; left: -100px; animation-delay: 8s;"></div>
-    </div>
-
-    <!-- نافذة رابط التصدير -->
-    <div class="export-link-modal" id="exportLinkModal">
-        <div class="export-link-content">
-            <h3>📥 رابط تحميل الملف</h3>
-            <p>انسخ الرابط أدناه والصقه في المتصفح لتحميل الملف:</p>
-            <div class="export-link-box" id="exportLinkBox">https://example.com/file.xlsx</div>
-            <div class="export-link-buttons">
-                <button class="export-link-btn copy" onclick="copyExportLink()">📋 نسخ الرابط</button>
-                <button class="export-link-btn close" onclick="closeExportLinkModal()">إغلاق</button>
-            </div>
-        </div>
     </div>
 
     <!-- شاشة تسجيل الدخول -->
@@ -2076,19 +1974,19 @@
                 <div class="settings-card">
                     <h3>تصدير الطلاب</h3>
                     <div class="export-options">
-                        <div class="export-option" onclick="showExportLink('pdf', 'students')">
+                        <div class="export-option" onclick="exportData('pdf', 'students')">
                             <i>📄</i>
                             <span>PDF</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('word', 'students')">
+                        <div class="export-option" onclick="exportData('word', 'students')">
                             <i>📝</i>
                             <span>Word</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('excel', 'students')">
+                        <div class="export-option" onclick="exportData('excel', 'students')">
                             <i>📊</i>
                             <span>Excel</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('csv', 'students')">
+                        <div class="export-option" onclick="exportData('csv', 'students')">
                             <i>📋</i>
                             <span>CSV</span>
                         </div>
@@ -2096,19 +1994,19 @@
                     
                     <h3 style="margin-top: 30px;">تصدير المدرسين</h3>
                     <div class="export-options">
-                        <div class="export-option" onclick="showExportLink('pdf', 'teachers')">
+                        <div class="export-option" onclick="exportData('pdf', 'teachers')">
                             <i>📄</i>
                             <span>PDF</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('word', 'teachers')">
+                        <div class="export-option" onclick="exportData('word', 'teachers')">
                             <i>📝</i>
                             <span>Word</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('excel', 'teachers')">
+                        <div class="export-option" onclick="exportData('excel', 'teachers')">
                             <i>📊</i>
                             <span>Excel</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('csv', 'teachers')">
+                        <div class="export-option" onclick="exportData('csv', 'teachers')">
                             <i>📋</i>
                             <span>CSV</span>
                         </div>
@@ -2116,19 +2014,19 @@
                     
                     <h3 style="margin-top: 30px;">تصدير النتائج</h3>
                     <div class="export-options">
-                        <div class="export-option" onclick="showExportLink('pdf', 'results')">
+                        <div class="export-option" onclick="exportData('pdf', 'results')">
                             <i>📄</i>
                             <span>PDF</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('word', 'results')">
+                        <div class="export-option" onclick="exportData('word', 'results')">
                             <i>📝</i>
                             <span>Word</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('excel', 'results')">
+                        <div class="export-option" onclick="exportData('excel', 'results')">
                             <i>📊</i>
                             <span>Excel</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('csv', 'results')">
+                        <div class="export-option" onclick="exportData('csv', 'results')">
                             <i>📋</i>
                             <span>CSV</span>
                         </div>
@@ -2136,19 +2034,19 @@
                     
                     <h3 style="margin-top: 30px;">جميع البيانات</h3>
                     <div class="export-options">
-                        <div class="export-option" onclick="showExportLink('pdf', 'all')">
+                        <div class="export-option" onclick="exportData('pdf', 'all')">
                             <i>📄</i>
                             <span>PDF</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('word', 'all')">
+                        <div class="export-option" onclick="exportData('word', 'all')">
                             <i>📝</i>
                             <span>Word</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('excel', 'all')">
+                        <div class="export-option" onclick="exportData('excel', 'all')">
                             <i>📊</i>
                             <span>Excel</span>
                         </div>
-                        <div class="export-option" onclick="showExportLink('csv', 'all')">
+                        <div class="export-option" onclick="exportData('csv', 'all')">
                             <i>📋</i>
                             <span>CSV</span>
                         </div>
@@ -2309,207 +2207,6 @@
             "التربية الرياضية",
             "الحاسوب"
         ];
-
-        // ============ دوال نافذة رابط التصدير ============
-        let currentExportUrl = '';
-
-        function showExportLink(format, type) {
-            // إنشاء رابط التصدير
-            const url = generateExportUrl(format, type);
-            if (!url) return;
-            
-            currentExportUrl = url;
-            document.getElementById('exportLinkBox').textContent = url;
-            document.getElementById('exportLinkModal').classList.add('active');
-        }
-
-        function closeExportLinkModal() {
-            document.getElementById('exportLinkModal').classList.remove('active');
-            if (currentExportUrl) {
-                URL.revokeObjectURL(currentExportUrl);
-                currentExportUrl = '';
-            }
-        }
-
-        function copyExportLink() {
-            const linkBox = document.getElementById('exportLinkBox');
-            const text = linkBox.textContent;
-            
-            // نسخ النص إلى الحافظة
-            navigator.clipboard.writeText(text).then(() => {
-                alert('✅ تم نسخ الرابط بنجاح');
-            }).catch(() => {
-                // إذا فشلت النسخ التلقائي، نستخدم طريقة بديلة
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                alert('✅ تم نسخ الرابط بنجاح');
-            });
-        }
-
-        function generateExportUrl(format, type) {
-            let filename = '';
-            let data = [];
-            let blob = null;
-            
-            if (type === 'students') {
-                filename = 'الطلاب';
-                data = students.map(s => ({
-                    'الرقم التسلسلي': s.serial,
-                    'الاسم': s.name,
-                    'المرحلة': s.grade,
-                    'فرنسي': s.studyFrench ? 'نعم' : 'لا',
-                    'كردي': s.studyKurdish ? 'نعم' : 'لا',
-                    'بعث': s.studyBaath ? 'نعم' : 'لا'
-                }));
-            } else if (type === 'teachers') {
-                filename = 'المدرسين';
-                data = teachers.map(t => ({
-                    'الرقم التسلسلي': t.serial,
-                    'الاسم': t.name,
-                    'الاختصاص': t.specialty,
-                    'المراحل': t.grades.join(' - ')
-                }));
-            } else if (type === 'results') {
-                filename = 'النتائج';
-                data = results.map(r => ({
-                    'الطالب': r.studentName,
-                    'المرحلة': r.grade,
-                    'المجموع': r.total,
-                    'المعدل': r.average.toFixed(2),
-                    'أعلى درجة': r.highest
-                }));
-            } else if (type === 'all') {
-                filename = 'جميع_البيانات';
-            }
-            
-            try {
-                if (format === 'excel') {
-                    let wb;
-                    if (type === 'all') {
-                        wb = XLSX.utils.book_new();
-                        
-                        const studentsWS = XLSX.utils.json_to_sheet(students.map(s => ({
-                            'الرقم التسلسلي': s.serial,
-                            'الاسم': s.name,
-                            'المرحلة': s.grade,
-                            'فرنسي': s.studyFrench ? 'نعم' : 'لا',
-                            'كردي': s.studyKurdish ? 'نعم' : 'لا',
-                            'بعث': s.studyBaath ? 'نعم' : 'لا'
-                        })));
-                        XLSX.utils.book_append_sheet(wb, studentsWS, 'الطلاب');
-                        
-                        const teachersWS = XLSX.utils.json_to_sheet(teachers.map(t => ({
-                            'الرقم التسلسلي': t.serial,
-                            'الاسم': t.name,
-                            'الاختصاص': t.specialty,
-                            'المراحل': t.grades.join(' - ')
-                        })));
-                        XLSX.utils.book_append_sheet(wb, teachersWS, 'المدرسين');
-                        
-                        const resultsWS = XLSX.utils.json_to_sheet(results.map(r => ({
-                            'الطالب': r.studentName,
-                            'المرحلة': r.grade,
-                            'المجموع': r.total,
-                            'المعدل': r.average.toFixed(2)
-                        })));
-                        XLSX.utils.book_append_sheet(wb, resultsWS, 'النتائج');
-                        
-                        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-                        blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
-                    } else {
-                        wb = XLSX.utils.book_new();
-                        const ws = XLSX.utils.json_to_sheet(data);
-                        XLSX.utils.book_append_sheet(wb, ws, filename);
-                        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-                        blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
-                    }
-                } else if (format === 'csv') {
-                    if (type === 'all') {
-                        alert('لتصدير جميع البيانات كـ CSV، يرجى استخدام خيار Excel');
-                        return null;
-                    }
-                    
-                    const ws = XLSX.utils.json_to_sheet(data);
-                    const csv = XLSX.utils.sheet_to_csv(ws);
-                    blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
-                    
-                } else if (format === 'word') {
-                    let html = '<html><head><meta charset="UTF-8"><title>' + filename + '</title></head><body>';
-                    html += '<h1 style="text-align: center;">' + filename + '</h1>';
-                    html += '<table border="1" style="border-collapse: collapse; width: 100%; text-align: right;">';
-                    
-                    if (data.length > 0) {
-                        html += '<tr>';
-                        for (let key in data[0]) {
-                            html += '<th style="background: #ff8c00; color: white; padding: 8px;">' + key + '</th>';
-                        }
-                        html += '</tr>';
-                        
-                        data.forEach(item => {
-                            html += '<tr>';
-                            for (let key in item) {
-                                html += '<td style="padding: 8px; border-bottom: 1px solid #ddd;">' + item[key] + '</td>';
-                            }
-                            html += '</tr>';
-                        });
-                    }
-                    
-                    html += '</table></body></html>';
-                    blob = new Blob([html], { type: 'application/msword' });
-                    
-                } else if (format === 'pdf') {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    
-                    doc.setFont('helvetica');
-                    doc.setFontSize(18);
-                    doc.text(filename, 105, 20, { align: 'center' });
-                    
-                    doc.setFontSize(12);
-                    let y = 40;
-                    
-                    data.forEach((item, index) => {
-                        if (y > 280) {
-                            doc.addPage();
-                            y = 20;
-                        }
-                        
-                        let line = `${index+1}. `;
-                        for (let key in item) {
-                            line += `${key}: ${item[key]} | `;
-                        }
-                        doc.text(line, 10, y);
-                        y += 10;
-                    });
-                    
-                    blob = doc.output('blob');
-                }
-                
-                if (blob) {
-                    const url = URL.createObjectURL(blob);
-                    addActivityLog(`إنشاء رابط تصدير ${filename} إلى ${format.toUpperCase()}`);
-                    return url;
-                }
-                
-            } catch (error) {
-                console.error('خطأ في إنشاء رابط التصدير:', error);
-                alert('حدث خطأ أثناء إنشاء رابط التصدير. يرجى المحاولة مرة أخرى.');
-            }
-            
-            return null;
-        }
-
-        // دالة مساعدة لتحويل السلسلة إلى ArrayBuffer
-        function s2ab(s) {
-            const buf = new ArrayBuffer(s.length);
-            const view = new Uint8Array(buf);
-            for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-            return buf;
-        }
 
         // ============ تشغيل الصوت الترحيبي ============
         function playWelcomeSound() {
@@ -4237,6 +3934,157 @@
                 reader.readAsText(file);
             };
             input.click();
+        }
+
+        // ============ تصدير البيانات ============
+        function exportData(format, type) {
+            let filename = '';
+            let data = [];
+            
+            if (type === 'students') {
+                filename = 'الطلاب';
+                data = students.map(s => ({
+                    'الرقم التسلسلي': s.serial,
+                    'الاسم': s.name,
+                    'المرحلة': s.grade,
+                    'فرنسي': s.studyFrench ? 'نعم' : 'لا',
+                    'كردي': s.studyKurdish ? 'نعم' : 'لا',
+                    'بعث': s.studyBaath ? 'نعم' : 'لا'
+                }));
+            } else if (type === 'teachers') {
+                filename = 'المدرسين';
+                data = teachers.map(t => ({
+                    'الرقم التسلسلي': t.serial,
+                    'الاسم': t.name,
+                    'الاختصاص': t.specialty,
+                    'المراحل': t.grades.join(' - ')
+                }));
+            } else if (type === 'results') {
+                filename = 'النتائج';
+                data = results.map(r => ({
+                    'الطالب': r.studentName,
+                    'المرحلة': r.grade,
+                    'المجموع': r.total,
+                    'المعدل': r.average.toFixed(2),
+                    'أعلى درجة': r.highest
+                }));
+            } else if (type === 'all') {
+                filename = 'جميع_البيانات';
+            }
+            
+            try {
+                if (format === 'excel') {
+                    let wb;
+                    if (type === 'all') {
+                        wb = XLSX.utils.book_new();
+                        
+                        const studentsWS = XLSX.utils.json_to_sheet(students.map(s => ({
+                            'الرقم التسلسلي': s.serial,
+                            'الاسم': s.name,
+                            'المرحلة': s.grade,
+                            'فرنسي': s.studyFrench ? 'نعم' : 'لا',
+                            'كردي': s.studyKurdish ? 'نعم' : 'لا',
+                            'بعث': s.studyBaath ? 'نعم' : 'لا'
+                        })));
+                        XLSX.utils.book_append_sheet(wb, studentsWS, 'الطلاب');
+                        
+                        const teachersWS = XLSX.utils.json_to_sheet(teachers.map(t => ({
+                            'الرقم التسلسلي': t.serial,
+                            'الاسم': t.name,
+                            'الاختصاص': t.specialty,
+                            'المراحل': t.grades.join(' - ')
+                        })));
+                        XLSX.utils.book_append_sheet(wb, teachersWS, 'المدرسين');
+                        
+                        const resultsWS = XLSX.utils.json_to_sheet(results.map(r => ({
+                            'الطالب': r.studentName,
+                            'المرحلة': r.grade,
+                            'المجموع': r.total,
+                            'المعدل': r.average.toFixed(2)
+                        })));
+                        XLSX.utils.book_append_sheet(wb, resultsWS, 'النتائج');
+                        
+                        XLSX.writeFile(wb, `${filename}_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.xlsx`);
+                    } else {
+                        wb = XLSX.utils.book_new();
+                        const ws = XLSX.utils.json_to_sheet(data);
+                        XLSX.utils.book_append_sheet(wb, ws, filename);
+                        XLSX.writeFile(wb, `${filename}_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.xlsx`);
+                    }
+                } else if (format === 'csv') {
+                    if (type === 'all') {
+                        alert('لتصدير جميع البيانات كـ CSV، يرجى استخدام خيار Excel');
+                        return;
+                    }
+                    
+                    const ws = XLSX.utils.json_to_sheet(data);
+                    const csv = XLSX.utils.sheet_to_csv(ws);
+                    const blob = new Blob(["\uFEFF" + csv], {type: 'text/csv;charset=utf-8;'});
+                    saveAs(blob, `${filename}_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.csv`);
+                    
+                } else if (format === 'word') {
+                    let html = '<html><head><meta charset="UTF-8"><title>' + filename + '</title></head><body>';
+                    html += '<h1 style="text-align: center;">' + filename + '</h1>';
+                    html += '<table border="1" style="border-collapse: collapse; width: 100%; text-align: right;">';
+                    
+                    if (data.length > 0) {
+                        // إضافة رؤوس الأعمدة
+                        html += '<tr>';
+                        for (let key in data[0]) {
+                            html += '<th style="background: #ff8c00; color: white; padding: 8px;">' + key + '</th>';
+                        }
+                        html += '</tr>';
+                        
+                        // إضافة البيانات
+                        data.forEach(item => {
+                            html += '<tr>';
+                            for (let key in item) {
+                                html += '<td style="padding: 8px; border-bottom: 1px solid #ddd;">' + item[key] + '</td>';
+                            }
+                            html += '</tr>';
+                        });
+                    }
+                    
+                    html += '</table></body></html>';
+                    
+                    const blob = new Blob([html], {type: 'application/msword'});
+                    saveAs(blob, `${filename}_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.doc`);
+                    
+                } else if (format === 'pdf') {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    doc.setFont('helvetica');
+                    doc.setFontSize(18);
+                    doc.text(filename, 105, 20, { align: 'center' });
+                    
+                    doc.setFontSize(12);
+                    let y = 40;
+                    
+                    data.forEach((item, index) => {
+                        if (y > 280) {
+                            doc.addPage();
+                            y = 20;
+                        }
+                        
+                        let line = `${index+1}. `;
+                        for (let key in item) {
+                            line += `${key}: ${item[key]} | `;
+                        }
+                        doc.text(line, 10, y);
+                        y += 10;
+                    });
+                    
+                    doc.save(`${filename}_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.pdf`);
+                }
+                
+                addActivityLog(`تصدير ${filename} إلى ${format.toUpperCase()}`);
+                alert(`تم تصدير البيانات بنجاح`);
+                
+            } catch (error) {
+                console.error('خطأ في التصدير:', error);
+                alert('حدث خطأ أثناء تصدير البيانات. يرجى المحاولة مرة أخرى.');
+            }
         }
 
         // ============ التهيئة عند تحميل الصفحة ============
