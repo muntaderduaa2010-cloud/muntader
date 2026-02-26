@@ -1,0 +1,4258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثانوية الكواكب المختلطة للمتفوقين</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* الخلفية الفضائية الرائعة */
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            overflow: hidden;
+        }
+
+        /* الكواكب */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .planet1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #ff8c00);
+            box-shadow: 0 0 80px #ff8c00;
+            animation-duration: 25s;
+        }
+
+        .planet2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            background: radial-gradient(circle at 30% 30%, #4a90e2, #1e3c72);
+            box-shadow: 0 0 60px #4a90e2;
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+
+        .planet3 {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            left: 20%;
+            background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
+            box-shadow: 0 0 50px #e74c3c;
+            animation-duration: 22s;
+        }
+
+        .planet4 {
+            width: 180px;
+            height: 180px;
+            top: 30%;
+            right: 20%;
+            background: radial-gradient(circle at 30% 30%, #2ecc71, #27ae60);
+            box-shadow: 0 0 70px #2ecc71;
+            animation-duration: 28s;
+        }
+
+        .planet5 {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            left: 30%;
+            background: radial-gradient(circle at 30% 30%, #f1c40f, #f39c12);
+            box-shadow: 0 0 40px #f1c40f;
+            animation-duration: 18s;
+        }
+
+        /* النجوم */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        /* الشهب */
+        .shooting-star {
+            position: absolute;
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            transform: rotate(-45deg);
+            animation: shoot 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(500px) translateY(500px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* شاشة تسجيل الدخول */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.5s;
+        }
+
+        .login-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            width: 400px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.5s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .login-card::before {
+            content: "✨";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            opacity: 0.3;
+            transform: rotate(15deg);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .login-card h2 span {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card .establish-date {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .login-input:focus {
+            border-color: #ff8c00;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        .login-options {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 140, 0, 0.4);
+        }
+
+        /* الهيدر */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .school-title {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .school-title h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .school-title h1 span {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .school-title .date-info {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-role {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* التبويبات */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 12px 25px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 1);
+            border-color: #ff8c00;
+        }
+
+        .tab.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* المحتوى */
+        .content {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* النماذج */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .form-control:focus {
+            border-color: #ff8c00;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        select[multiple] {
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: 8px;
+            margin-bottom: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* الجداول */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 25px;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* المواد الدراسية */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .subject-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 14px;
+        }
+
+        .subject-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .subject-item .btn-small {
+            padding: 4px 8px;
+            font-size: 11px;
+            margin: 0;
+        }
+
+        /* جدول الحصص */
+        .schedule-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 120px repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .schedule-header {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .schedule-time {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .schedule-cell {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            min-height: 80px;
+            border: 2px dashed #ddd;
+            transition: 0.3s;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .schedule-cell.editable {
+            cursor: pointer;
+        }
+
+        .schedule-cell.editable:hover {
+            background: #fff3e0;
+            border-color: #ff8c00;
+        }
+
+        .schedule-cell .subject {
+            font-weight: bold;
+            color: #ff8c00;
+        }
+
+        .schedule-cell .teacher {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* قناة التواصل - متطورة */
+        .chat-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 18px;
+            border-radius: 18px;
+            background: rgba(255, 243, 224, 0.9);
+            backdrop-filter: blur(5px);
+            max-width: 70%;
+            animation: messageAppear 0.5s ease-out;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform-origin: right;
+            position: relative;
+        }
+
+        .message:hover .delete-message {
+            display: flex;
+        }
+
+        .delete-message {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 25px;
+            height: 25px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .delete-message:hover {
+            transform: scale(1.1);
+            background: #c0392b;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateX(50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .message.own {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(255, 140, 0, 0.9));
+            color: white;
+            margin-left: auto;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 20px rgba(255, 140, 0, 0.3);
+            animation: ownMessageAppear 0.5s ease-out;
+        }
+
+        @keyframes ownMessageAppear {
+            from {
+                opacity: 0;
+                transform: translateX(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .message.own .message-header {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .message.own .delete-message {
+            background: rgba(255, 255, 255, 0.3);
+            color: #e74c3c;
+        }
+
+        .message-header {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .message-avatar {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .message-content {
+            font-size: 14px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .message-time {
+            font-size: 10px;
+            opacity: 0.7;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        .chat-input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 12px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #ff8c00;
+        }
+
+        .chat-input:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .chat-attachments {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+
+        .attach-btn {
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border: 2px solid #ffd700;
+            border-radius: 25px;
+            color: #ff8c00;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .attach-btn:hover {
+            background: #ffd700;
+            color: white;
+        }
+
+        .attach-btn i {
+            font-size: 16px;
+        }
+
+        .attach-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .chat-send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.5);
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .file-preview {
+            padding: 10px;
+            background: #fff3e0;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-preview img, .file-preview video {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+        }
+
+        .file-preview audio {
+            width: 200px;
+        }
+
+        .file-preview .file-info {
+            flex: 1;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .file-preview .remove-file {
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* الإعدادات */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .settings-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 18px;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .settings-card h3 {
+            margin-bottom: 15px;
+            color: #ff8c00;
+            border-bottom: 2px solid #ff8c00;
+            padding-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-item label {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .info-item value {
+            color: #ff8c00;
+            font-weight: bold;
+        }
+
+        /* شاشة المدير */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .admin-card {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-right: 4px solid #ff8c00;
+        }
+
+        .admin-card h3 {
+            color: #ff8c00;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .activity-log {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .log-time {
+            color: #999;
+            font-size: 11px;
+        }
+
+        /* الإعلانات */
+        .announcements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .announcement-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #ff8c00;
+        }
+
+        .announcement-header {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .announcement-body {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .badge-success {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .badge-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .badge-info {
+            background: #3498db;
+            color: white;
+        }
+
+        .password-info {
+            background: #fff3e0;
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #ff8c00;
+            border: 1px solid #ff8c00;
+        }
+
+        /* النوافذ المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            width: 500px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* نافذة رابط التصدير */
+        .export-link-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .export-link-modal.active {
+            display: flex;
+        }
+
+        .export-link-content {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            width: 500px;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .export-link-content h3 {
+            color: #ff8c00;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .export-link-content p {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .export-link-box {
+            background: #f8f9fa;
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            direction: ltr;
+            text-align: left;
+            font-size: 14px;
+            word-break: break-all;
+            color: #333;
+        }
+
+        .export-link-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .export-link-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .export-link-btn.copy {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+        }
+
+        .export-link-btn.copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,140,0,0.3);
+        }
+
+        .export-link-btn.close {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .export-link-btn.close:hover {
+            background: #c0392b;
+        }
+
+        /* تصدير البيانات */
+        .export-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .export-option {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .export-option:hover {
+            transform: translateY(-5px);
+            border-color: #ff8c00;
+            box-shadow: 0 5px 20px rgba(255,140,0,0.2);
+        }
+
+        .export-option i {
+            font-size: 40px;
+            color: #ff8c00;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .export-option span {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* توقيع الطالب منتظر في أسفل كل مستطيل */
+        .signature-footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 140, 0, 0.7);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-family: 'Cairo', sans-serif;
+            border-top: 1px dashed rgba(255, 140, 0, 0.3);
+            padding-top: 8px;
+            margin-top: 10px;
+        }
+
+        .signature-footer span {
+            display: inline-block;
+            animation: fadePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes fadePulse {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+                color: #ff8c00;
+            }
+        }
+
+        /* نتائج الطلاب */
+        .results-summary {
+            background: linear-gradient(135deg, #ffd70020, #ff8c0020);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .results-summary h3 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-item label {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .stat-item value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff8c00;
+        }
+
+        /* عرض حسب المرحلة */
+        .grade-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .grade-btn {
+            padding: 8px 20px;
+            background: #f8f9fa;
+            border: 2px solid #ffd700;
+            border-radius: 25px;
+            color: #ff8c00;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .grade-btn.active {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            border-color: transparent;
+        }
+
+        .grade-btn:hover {
+            background: #ffd700;
+            color: white;
+        }
+
+        /* نتائج الطلاب - درجات فقط */
+        .result-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .result-item label {
+            font-weight: bold;
+            color: #ff8c00;
+            font-size: 14px;
+        }
+
+        .result-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .result-input:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        /* بطاقة نتيجة الطالب */
+        .student-result-card {
+            background: linear-gradient(135deg, #ffd70020, #ff8c0020);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .student-result-card h3 {
+            color: #ff8c00;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .student-result-card .result-detail {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .result-detail-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-detail-item label {
+            display: block;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .result-detail-item value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff8c00;
+        }
+
+        .subject-scores {
+            margin-top: 30px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .subject-scores table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .subject-scores th {
+            background: #ff8c00;
+            color: white;
+            padding: 12px;
+        }
+
+        .subject-scores td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+    <!-- إضافة مكتبة SheetJS لتصدير Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- إضافة مكتبة jsPDF لتصدير PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- إضافة مكتبة html2canvas لتصدير PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- إضافة مكتبة FileSaver لحفظ الملفات -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+    <!-- الخلفية الفضائية الرائعة -->
+    <div class="space-background">
+        <div class="planet planet1"></div>
+        <div class="planet planet2"></div>
+        <div class="planet planet3"></div>
+        <div class="planet planet4"></div>
+        <div class="planet planet5"></div>
+        
+        <!-- النجوم -->
+        <div class="star" style="width: 3px; height: 3px; top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 30%; left: 80%; animation-delay: 1s;"></div>
+        <div class="star" style="width: 4px; height: 4px; top: 70%; left: 40%; animation-delay: 2s;"></div>
+        <div class="star" style="width: 2px; height: 2px; top: 90%; left: 60%; animation-delay: 3s;"></div>
+        <div class="star" style="width: 3px; height: 3px; top: 20%; left: 90%; animation-delay: 4s;"></div>
+        
+        <!-- الشهب -->
+        <div class="shooting-star" style="top: 10%; left: -100px; animation-delay: 2s;"></div>
+        <div class="shooting-star" style="top: 30%; left: -100px; animation-delay: 5s;"></div>
+        <div class="shooting-star" style="top: 50%; left: -100px; animation-delay: 8s;"></div>
+    </div>
+
+    <!-- نافذة رابط التصدير -->
+    <div class="export-link-modal" id="exportLinkModal">
+        <div class="export-link-content">
+            <h3>📥 رابط تحميل الملف</h3>
+            <p>انسخ الرابط أدناه والصقه في المتصفح لتحميل الملف:</p>
+            <div class="export-link-box" id="exportLinkBox">https://example.com/file.xlsx</div>
+            <div class="export-link-buttons">
+                <button class="export-link-btn copy" onclick="copyExportLink()">📋 نسخ الرابط</button>
+                <button class="export-link-btn close" onclick="closeExportLinkModal()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة تسجيل الدخول -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h2>ثانوية <span>الكواكب</span> المختلطة للمتفوقين</h2>
+            <div class="establish-date">
+                <i class="fas fa-calendar-alt"></i> تأسست: 2020م - 1441هـ
+                <br>
+                <small>العام الدراسي: 2026م - 1447هـ</small>
+            </div>
+            <input type="text" class="login-input" id="username" placeholder="اسم المستخدم">
+            <input type="password" class="login-input" id="password" placeholder="كلمة المرور">
+            <div class="login-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe" checked> تذكرني
+                </label>
+            </div>
+            <button class="login-btn" onclick="login()">دخول</button>
+            <!-- توقيع الطالب منتظر -->
+            <div class="signature-footer">
+                <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container" id="mainContent" style="display: none;">
+        <!-- الهيدر -->
+        <div class="header">
+            <div class="school-title">
+                <h1>ثانوية <span>الكواكب</span> المختلطة للمتفوقين</h1>
+                <div class="date-info">
+                    <span>تأسست: 2020م - 1441هـ</span>
+                    <span>العام الدراسي: 2026م - 1447هـ</span>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-role" id="currentUserRole"></div>
+                <div class="user-role" id="currentUserName"></div>
+                <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
+            </div>
+        </div>
+
+        <!-- التبويبات - سيتم إظهارها حسب الصلاحية -->
+        <div class="tabs" id="tabsContainer"></div>
+
+        <!-- المحتوى -->
+        <div class="content">
+            <!-- الرئيسية (لجميع المستخدمين) -->
+            <div class="content-section" id="dashboard">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">مرحباً بك في نظام ثانوية الكواكب المختلطة للمتفوقين</h2>
+                
+                <!-- معلومات المدير -->
+                <div class="settings-card">
+                    <h3>معلومات مدير الثانوية</h3>
+                    <div class="info-item">
+                        <label>الاسم:</label>
+                        <value id="managerName">مدير النظام</value>
+                    </div>
+                    <div class="info-item">
+                        <label>البريد الإلكتروني:</label>
+                        <value id="managerEmail">manager@alkawakib.edu</value>
+                    </div>
+                    <div class="info-item">
+                        <label>رقم الهاتف:</label>
+                        <value id="managerPhone">+964 123 456 789</value>
+                    </div>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                
+                <!-- الإعلانات العامة (لجميع المستخدمين) -->
+                <div class="settings-card" style="margin-top: 20px;">
+                    <h3 style="margin-bottom: 12px; font-size: 18px;">آخر الإعلانات</h3>
+                    <div id="publicAnnouncements" class="announcements-container"></div>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- صفحة المدير (للمدير فقط) -->
+            <div class="content-section" id="admin">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">لوحة تحكم المدير</h2>
+                
+                <div class="admin-stats">
+                    <div class="admin-card">
+                        <h3>إحصائيات سريعة</h3>
+                        <div class="info-item">
+                            <label>الطلاب:</label>
+                            <value id="adminStudentCount">0</value>
+                        </div>
+                        <div class="info-item">
+                            <label>المدرسين:</label>
+                            <value id="adminTeacherCount">0</value>
+                        </div>
+                        <div class="info-item">
+                            <label>المعاونين:</label>
+                            <value id="adminAssistantCount">0</value>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <h3>تعديل معلومات المدير</h3>
+                        <div class="form-group">
+                            <label>اسم المدير</label>
+                            <input type="text" class="form-control" id="editManagerName" value="مدير النظام">
+                        </div>
+                        <div class="form-group">
+                            <label>البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="editManagerEmail" value="manager@alkawakib.edu">
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الهاتف</label>
+                            <input type="text" class="form-control" id="editManagerPhone" value="+964 123 456 789">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveManagerInfo()">حفظ التعديلات</button>
+                        <button class="btn btn-info" onclick="showChangePasswordModal()">تغيير كلمة المرور</button>
+                    </div>
+                </div>
+                
+                <div class="settings-card">
+                    <h3>سجل النشاطات 
+                        <button class="btn btn-danger btn-sm" onclick="clearActivityLog()" style="float: left;">حذف الكل</button>
+                    </h3>
+                    <div class="activity-log" id="activityLog"></div>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                
+                <div class="settings-card" style="margin-top: 15px;">
+                    <h3>إعدادات النظام</h3>
+                    <button class="btn btn-primary" onclick="backupData()">نسخ احتياطي</button>
+                    <button class="btn btn-success" onclick="restoreData()">استعادة البيانات</button>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إدارة الطلاب (للمدير والمعاون) -->
+            <div class="content-section" id="students">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">إدارة الطلاب</h2>
+                
+                <!-- تصفية حسب المرحلة -->
+                <div class="grade-filter" id="studentGradeFilter">
+                    <button class="grade-btn active" onclick="filterStudents('all')">الكل</button>
+                    <button class="grade-btn" onclick="filterStudents('الاول المتوسط')">الاول المتوسط</button>
+                    <button class="grade-btn" onclick="filterStudents('الثاني متوسط')">الثاني متوسط</button>
+                    <button class="grade-btn" onclick="filterStudents('الثالث متوسط')">الثالث متوسط</button>
+                    <button class="grade-btn" onclick="filterStudents('الرابع العلمي')">الرابع العلمي</button>
+                    <button class="grade-btn" onclick="filterStudents('الخامس العلمي')">الخامس العلمي</button>
+                    <button class="grade-btn" onclick="filterStudents('السادس العلمي')">السادس العلمي</button>
+                </div>
+                
+                <div class="settings-card">
+                    <h3 style="margin-bottom: 12px;">إضافة طالب جديد</h3>
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" class="form-control" id="studentName" placeholder="أدخل اسم الطالب">
+                    </div>
+                    <div class="form-group">
+                        <label>الرقم التسلسلي (تلقائي)</label>
+                        <input type="text" class="form-control" id="studentSerial" readonly value="سيتولد تلقائياً">
+                    </div>
+                    <div class="form-group">
+                        <label>المرحلة الدراسية</label>
+                        <select class="form-control" id="studentGrade">
+                            <option value="الاول المتوسط أ">الاول المتوسط أ</option>
+                            <option value="الاول المتوسط ب">الاول المتوسط ب</option>
+                            <option value="الاول المتوسط ج">الاول المتوسط ج</option>
+                            <option value="الثاني متوسط أ">الثاني متوسط أ</option>
+                            <option value="الثاني متوسط ب">الثاني متوسط ب</option>
+                            <option value="الثالث متوسط أ">الثالث متوسط أ</option>
+                            <option value="الثالث متوسط ب">الثالث متوسط ب</option>
+                            <option value="الرابع العلمي أ">الرابع العلمي أ</option>
+                            <option value="الرابع العلمي ب">الرابع العلمي ب</option>
+                            <option value="الخامس العلمي أ">الخامس العلمي أ</option>
+                            <option value="الخامس العلمي ب">الخامس العلمي ب</option>
+                            <option value="السادس العلمي أ">السادس العلمي أ</option>
+                            <option value="السادس العلمي ب">السادس العلمي ب</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="studyFrench">
+                        <label for="studyFrench">يدرس اللغة الفرنسية</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="studyKurdish">
+                        <label for="studyKurdish">يدرس اللغة الكردية</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="studyBaath">
+                        <label for="studyBaath">يدرس جرائم البعث</label>
+                    </div>
+                    <div class="password-info" id="studentPasswordInfo">
+                        سيتم إنشاء كلمة مرور تلقائية: <strong>Student@123</strong>
+                    </div>
+                    <button class="btn btn-primary" id="addStudentBtn" onclick="addStudent()">إضافة طالب</button>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>الرقم التسلسلي</th>
+                                <th>الاسم</th>
+                                <th>المرحلة</th>
+                                <th>فرنسي</th>
+                                <th>كردي</th>
+                                <th>بعث</th>
+                                <th>اسم المستخدم</th>
+                                <th>كلمة المرور</th>
+                                <th id="studentsActionsHeader">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsList"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- إدارة المدرسين (للمدير والمعاون) -->
+            <div class="content-section" id="teachers">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">إدارة المدرسين</h2>
+                <div class="settings-card">
+                    <h3 style="margin-bottom: 12px;">إضافة مدرس جديد</h3>
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" class="form-control" id="teacherName" placeholder="أدخل اسم المدرس">
+                    </div>
+                    <div class="form-group">
+                        <label>الرقم التسلسلي (تلقائي)</label>
+                        <input type="text" class="form-control" id="teacherSerial" readonly value="سيتولد تلقائياً">
+                    </div>
+                    <div class="form-group">
+                        <label>الاختصاص</label>
+                        <select class="form-control" id="teacherSpecialty">
+                            <option value="تربية اسلامية">تربية اسلامية</option>
+                            <option value="لغة عربية">لغة عربية</option>
+                            <option value="لغة انكليزية">لغة انكليزية</option>
+                            <option value="لغة فرنسية">لغة فرنسية</option>
+                            <option value="لغة كردية">لغة كردية</option>
+                            <option value="رياضيات">رياضيات</option>
+                            <option value="فيزياء">فيزياء</option>
+                            <option value="كيمياء">كيمياء</option>
+                            <option value="احياء">احياء</option>
+                            <option value="اجتماعيات">اجتماعيات</option>
+                            <option value="جرائم البعث">جرائم البعث البائد</option>
+                            <option value="التربية الفنية">التربية الفنية</option>
+                            <option value="التربية الرياضية">التربية الرياضية</option>
+                            <option value="الحاسوب">الحاسوب</option>
+                        </select>
+                    </div>
+                    
+                    <!-- تحديد المراحل المتفرقة -->
+                    <div class="form-group">
+                        <label>المراحل التي يدرسها (اختر متفرقة)</label>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; background: white; border-radius: 8px; border: 2px solid #e0e0e0;">
+                            <label><input type="checkbox" value="الاول المتوسط"> الاول المتوسط</label>
+                            <label><input type="checkbox" value="الثاني متوسط"> الثاني متوسط</label>
+                            <label><input type="checkbox" value="الثالث متوسط"> الثالث متوسط</label>
+                            <label><input type="checkbox" value="الرابع العلمي"> الرابع العلمي</label>
+                            <label><input type="checkbox" value="الخامس العلمي"> الخامس العلمي</label>
+                            <label><input type="checkbox" value="السادس العلمي"> السادس العلمي</label>
+                        </div>
+                        <small>يمكنك اختيار أكثر من مرحلة (متفرقة أو متصلة)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>المواد التي يدرسها</label>
+                        <div class="subjects-grid" id="teacherSubjects"></div>
+                    </div>
+                    <div class="password-info" id="teacherPasswordInfo">
+                        سيتم إنشاء كلمة مرور تلقائية: <strong>Teacher@123</strong>
+                    </div>
+                    <button class="btn btn-primary" id="addTeacherBtn" onclick="addTeacher()">إضافة مدرس</button>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الرقم التسلسلي</th>
+                                <th>الاسم</th>
+                                <th>الاختصاص</th>
+                                <th>المراحل</th>
+                                <th>المواد</th>
+                                <th id="teachersActionsHeader">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teachersList"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- إدارة المعاونين (للمدير فقط) -->
+            <div class="content-section" id="assistants">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">إدارة المعاونين</h2>
+                <div class="settings-card">
+                    <h3 style="margin-bottom: 12px;">إضافة معاون جديد</h3>
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" class="form-control" id="assistantName" placeholder="أدخل اسم المعاون">
+                    </div>
+                    <div class="form-group">
+                        <label>الرقم التسلسلي (تلقائي)</label>
+                        <input type="text" class="form-control" id="assistantSerial" readonly value="سيتولد تلقائياً">
+                    </div>
+                    <div class="form-group">
+                        <label>المهام</label>
+                        <textarea class="form-control" id="assistantTasks" rows="3" placeholder="مهام المعاون"></textarea>
+                    </div>
+                    <div class="password-info" id="assistantPasswordInfo">
+                        سيتم إنشاء كلمة مرور تلقائية: <strong>Assistant@123</strong>
+                    </div>
+                    <button class="btn btn-primary" onclick="addAssistant()">إضافة معاون</button>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الرقم التسلسلي</th>
+                                <th>الاسم</th>
+                                <th>المهام</th>
+                                <th>اسم المستخدم</th>
+                                <th>كلمة المرور</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assistantsList"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- المواد الدراسية (للمدير فقط) -->
+            <div class="content-section" id="subjects">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">المواد الدراسية</h2>
+                <div class="settings-card">
+                    <h3>
+                        جميع المواد 
+                        <button class="btn btn-success btn-sm" onclick="showAddSubjectModal()" style="float: left;">➕ إضافة مادة</button>
+                    </h3>
+                    <div class="subjects-grid" id="allSubjects"></div>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- النتائج (للمدير والمدرسين والطلاب) -->
+            <div class="content-section" id="results">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">النتائج</h2>
+                
+                <!-- للمدير: عرض جميع النتائج مع إمكانية الإضافة -->
+                <div id="adminResultsView" style="display: none;">
+                    <!-- تصفية حسب المرحلة -->
+                    <div class="grade-filter" id="resultGradeFilter">
+                        <button class="grade-btn active" onclick="filterResults('all')">الكل</button>
+                        <button class="grade-btn" onclick="filterResults('الاول المتوسط')">الاول المتوسط</button>
+                        <button class="grade-btn" onclick="filterResults('الثاني متوسط')">الثاني متوسط</button>
+                        <button class="grade-btn" onclick="filterResults('الثالث متوسط')">الثالث متوسط</button>
+                        <button class="grade-btn" onclick="filterResults('الرابع العلمي')">الرابع العلمي</button>
+                        <button class="grade-btn" onclick="filterResults('الخامس العلمي')">الخامس العلمي</button>
+                        <button class="grade-btn" onclick="filterResults('السادس العلمي')">السادس العلمي</button>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <select class="form-control" id="resultGrade" onchange="loadStudentsForResults()">
+                                <option value="">اختر المرحلة</option>
+                                <option value="الاول المتوسط أ">الاول المتوسط أ</option>
+                                <option value="الاول المتوسط ب">الاول المتوسط ب</option>
+                                <option value="الاول المتوسط ج">الاول المتوسط ج</option>
+                                <option value="الثاني متوسط أ">الثاني متوسط أ</option>
+                                <option value="الثاني متوسط ب">الثاني متوسط ب</option>
+                                <option value="الثالث متوسط أ">الثالث متوسط أ</option>
+                                <option value="الثالث متوسط ب">الثالث متوسط ب</option>
+                                <option value="الرابع العلمي أ">الرابع العلمي أ</option>
+                                <option value="الرابع العلمي ب">الرابع العلمي ب</option>
+                                <option value="الخامس العلمي أ">الخامس العلمي أ</option>
+                                <option value="الخامس العلمي ب">الخامس العلمي ب</option>
+                                <option value="السادس العلمي أ">السادس العلمي أ</option>
+                                <option value="السادس العلمي ب">السادس العلمي ب</option>
+                            </select>
+                            <select class="form-control" id="resultStudent" onchange="loadStudentResult()">
+                                <option value="">اختر الطالب</option>
+                            </select>
+                        </div>
+                        
+                        <div id="resultForm" style="display: none;">
+                            <h3>إدخال الدرجات</h3>
+                            <div id="resultSubjects"></div>
+                            
+                            <div class="results-summary">
+                                <h3>ملخص النتائج</h3>
+                                <div class="results-stats">
+                                    <div class="stat-item">
+                                        <label>المجموع الكلي</label>
+                                        <value id="totalSum">0</value>
+                                    </div>
+                                    <div class="stat-item">
+                                        <label>عدد المواد</label>
+                                        <value id="subjectCount">0</value>
+                                    </div>
+                                    <div class="stat-item">
+                                        <label>المعدل العام</label>
+                                        <value id="overallAverage">0</value>
+                                    </div>
+                                    <div class="stat-item">
+                                        <label>أعلى درجة</label>
+                                        <value id="highestScore">0</value>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="saveResult()">حفظ النتيجة</button>
+                        </div>
+                        <!-- توقيع الطالب منتظر -->
+                        <div class="signature-footer">
+                            <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive" style="margin-top: 25px;">
+                        <table id="resultsTable">
+                            <thead>
+                                <tr>
+                                    <th>الطالب</th>
+                                    <th>المرحلة</th>
+                                    <th>المجموع</th>
+                                    <th>المعدل</th>
+                                    <th>أعلى درجة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsList"></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- للمدرس: عرض نتائج طلابه فقط -->
+                <div id="teacherResultsView" style="display: none;">
+                    <div class="settings-card">
+                        <h3>نتائج طلابي</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>الطالب</th>
+                                        <th>المرحلة</th>
+                                        <th>المجموع</th>
+                                        <th>المعدل</th>
+                                        <th>أعلى درجة</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacherResultsList"></tbody>
+                            </table>
+                        </div>
+                        <!-- توقيع الطالب منتظر -->
+                        <div class="signature-footer">
+                            <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- للطالب: عرض نتيجته فقط -->
+                <div id="studentResultsView" style="display: none;">
+                    <div class="student-result-card" id="studentResultCard">
+                        <h3>نتيجتك</h3>
+                        <div id="studentResultDetails"></div>
+                    </div>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الجدول الدراسي (للمدير والمعاون والمدرسين والطلاب) -->
+            <div class="content-section" id="schedule">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">الجدول الدراسي</h2>
+                
+                <div class="schedule-controls">
+                    <select class="form-control" style="width: 250px;" id="scheduleGrade" onchange="loadSchedule()">
+                        <option value="الاول المتوسط أ">الاول المتوسط أ</option>
+                        <option value="الاول المتوسط ب">الاول المتوسط ب</option>
+                        <option value="الاول المتوسط ج">الاول المتوسط ج</option>
+                        <option value="الثاني متوسط أ">الثاني متوسط أ</option>
+                        <option value="الثاني متوسط ب">الثاني متوسط ب</option>
+                        <option value="الثالث متوسط أ">الثالث متوسط أ</option>
+                        <option value="الثالث متوسط ب">الثالث متوسط ب</option>
+                        <option value="الرابع العلمي أ">الرابع العلمي أ</option>
+                        <option value="الرابع العلمي ب">الرابع العلمي ب</option>
+                        <option value="الخامس العلمي أ">الخامس العلمي أ</option>
+                        <option value="الخامس العلمي ب">الخامس العلمي ب</option>
+                        <option value="السادس العلمي أ">السادس العلمي أ</option>
+                        <option value="السادس العلمي ب">السادس العلمي ب</option>
+                    </select>
+                    
+                    <select class="form-control" style="width: 200px;" id="scheduleTeacher" style="display: none;">
+                        <option value="">اختر المدرس</option>
+                    </select>
+                    
+                    <button class="btn btn-primary" id="addScheduleBtn" onclick="addScheduleClass()" style="display: none;">➕ إضافة حصة</button>
+                    <button class="btn btn-warning" id="editScheduleBtn" onclick="editSchedule()" style="display: none;">✏️ تعديل الجدول</button>
+                    <button class="btn btn-danger" id="deleteScheduleBtn" onclick="deleteScheduleClass()" style="display: none;">🗑️ حذف حصة</button>
+                </div>
+                
+                <div id="scheduleContainer"></div>
+                
+                <div class="settings-card" style="margin-top: 20px;">
+                    <h3>تعليمات الجدول</h3>
+                    <ul style="padding-right: 20px;">
+                        <li>6 حصص يومياً من الأحد إلى الخميس</li>
+                        <li id="scheduleInstruction"></li>
+                    </ul>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قناة التواصل (للمدير والمعاون والمدرسين) -->
+            <div class="content-section" id="chat">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">قناة التواصل</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages"></div>
+                    
+                    <div class="chat-input-area" id="chatInputArea" style="display: none;">
+                        <!-- معاينة الملفات المرفقة -->
+                        <div id="filePreview" class="file-preview" style="display: none;"></div>
+                        
+                        <!-- أزرار إرفاق الملفات -->
+                        <div class="chat-attachments">
+                            <label class="attach-btn" id="imageAttachBtn">
+                                <i>📷</i> صورة
+                                <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleFileUpload(this, 'image')">
+                            </label>
+                            <label class="attach-btn" id="videoAttachBtn">
+                                <i>🎥</i> فيديو
+                                <input type="file" id="videoUpload" accept="video/*" style="display: none;" onchange="handleFileUpload(this, 'video')">
+                            </label>
+                            <label class="attach-btn" id="fileAttachBtn">
+                                <i>📎</i> ملف
+                                <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt" style="display: none;" onchange="handleFileUpload(this, 'file')">
+                            </label>
+                            <label class="attach-btn" id="audioAttachBtn">
+                                <i>🎤</i> صوت
+                                <input type="file" id="audioUpload" accept="audio/*" style="display: none;" onchange="handleFileUpload(this, 'audio')">
+                            </label>
+                        </div>
+                        
+                        <!-- إدخال النص وزر الإرسال -->
+                        <div class="chat-input-row">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="اكتب رسالتك..." disabled>
+                            <button class="chat-send-btn" id="chatSendBtn" onclick="sendMessage()" disabled>➤</button>
+                        </div>
+                    </div>
+                    
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تصدير البيانات (للمدير والمعاون) -->
+            <div class="content-section" id="export">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">تصدير البيانات</h2>
+                
+                <div class="settings-card">
+                    <h3>تصدير الطلاب</h3>
+                    <div class="export-options">
+                        <div class="export-option" onclick="showExportLink('pdf', 'students')">
+                            <i>📄</i>
+                            <span>PDF</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('word', 'students')">
+                            <i>📝</i>
+                            <span>Word</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('excel', 'students')">
+                            <i>📊</i>
+                            <span>Excel</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('csv', 'students')">
+                            <i>📋</i>
+                            <span>CSV</span>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">تصدير المدرسين</h3>
+                    <div class="export-options">
+                        <div class="export-option" onclick="showExportLink('pdf', 'teachers')">
+                            <i>📄</i>
+                            <span>PDF</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('word', 'teachers')">
+                            <i>📝</i>
+                            <span>Word</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('excel', 'teachers')">
+                            <i>📊</i>
+                            <span>Excel</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('csv', 'teachers')">
+                            <i>📋</i>
+                            <span>CSV</span>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">تصدير النتائج</h3>
+                    <div class="export-options">
+                        <div class="export-option" onclick="showExportLink('pdf', 'results')">
+                            <i>📄</i>
+                            <span>PDF</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('word', 'results')">
+                            <i>📝</i>
+                            <span>Word</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('excel', 'results')">
+                            <i>📊</i>
+                            <span>Excel</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('csv', 'results')">
+                            <i>📋</i>
+                            <span>CSV</span>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">جميع البيانات</h3>
+                    <div class="export-options">
+                        <div class="export-option" onclick="showExportLink('pdf', 'all')">
+                            <i>📄</i>
+                            <span>PDF</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('word', 'all')">
+                            <i>📝</i>
+                            <span>Word</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('excel', 'all')">
+                            <i>📊</i>
+                            <span>Excel</span>
+                        </div>
+                        <div class="export-option" onclick="showExportLink('csv', 'all')">
+                            <i>📋</i>
+                            <span>CSV</span>
+                        </div>
+                    </div>
+                    
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                
+                <div class="settings-card" style="margin-top: 20px;">
+                    <h3>إحصائيات سريعة</h3>
+                    <div class="info-item">
+                        <label>إجمالي الطلاب:</label>
+                        <value id="exportStudentCount">0</value>
+                    </div>
+                    <div class="info-item">
+                        <label>إجمالي المدرسين:</label>
+                        <value id="exportTeacherCount">0</value>
+                    </div>
+                    <div class="info-item">
+                        <label>إجمالي النتائج:</label>
+                        <value id="exportResultCount">0</value>
+                    </div>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الإعلانات (للمدير فقط) -->
+            <div class="content-section" id="announcements">
+                <h2 style="margin-bottom: 15px; font-size: 22px;">إدارة الإعلانات</h2>
+                
+                <div class="settings-card">
+                    <h3>إضافة إعلان جديد</h3>
+                    <div class="form-group">
+                        <label>عنوان الإعلان</label>
+                        <input type="text" class="form-control" id="announcementTitle" placeholder="عنوان الإعلان">
+                    </div>
+                    <div class="form-group">
+                        <label>نوع الإعلان</label>
+                        <select class="form-control" id="announcementType" onchange="toggleAnnouncementFields()">
+                            <option value="text">نص</option>
+                            <option value="image">صورة</option>
+                            <option value="video">فيديو</option>
+                            <option value="file">ملف</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="announcementTextField">
+                        <label>نص الإعلان</label>
+                        <textarea class="form-control" id="announcementText" rows="3" placeholder="نص الإعلان"></textarea>
+                    </div>
+                    <div class="form-group" id="announcementImageField" style="display: none;">
+                        <label>رابط الصورة</label>
+                        <input type="url" class="form-control" id="announcementImage" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-group" id="announcementVideoField" style="display: none;">
+                        <label>رابط الفيديو</label>
+                        <input type="url" class="form-control" id="announcementVideo" placeholder="https://youtube.com/watch?v=...">
+                    </div>
+                    <div class="form-group" id="announcementFileField" style="display: none;">
+                        <label>رابط الملف</label>
+                        <input type="url" class="form-control" id="announcementFile" placeholder="https://example.com/file.pdf">
+                    </div>
+                    <button class="btn btn-primary" onclick="addAnnouncement()">نشر الإعلان</button>
+                    <!-- توقيع الطالب منتظر -->
+                    <div class="signature-footer">
+                        <span>✦ من إعداد و تصميم الطالب: منتظر دعاء - الصف الرابع العلمي أ ✦</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 25px;">
+                    <h3>الإعلانات المنشورة</h3>
+                    <div id="announcementsList" class="announcements-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تغيير كلمة المرور -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 15px; color: #ff8c00; font-size: 22px;">تغيير كلمة المرور</h2>
+            <div class="form-group">
+                <label>كلمة المرور الحالية</label>
+                <input type="password" class="form-control" id="currentPassword" placeholder="أدخل كلمة المرور الحالية">
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور الجديدة</label>
+                <input type="password" class="form-control" id="newPassword" placeholder="أدخل كلمة المرور الجديدة">
+            </div>
+            <div class="form-group">
+                <label>تأكيد كلمة المرور الجديدة</label>
+                <input type="password" class="form-control" id="confirmNewPassword" placeholder="أعد إدخال كلمة المرور الجديدة">
+            </div>
+            <button class="btn btn-primary" onclick="changePassword()">تغيير كلمة المرور</button>
+            <button class="btn btn-danger" onclick="closeChangePasswordModal()">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة مادة جديدة -->
+    <div class="modal" id="addSubjectModal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 15px; color: #ff8c00; font-size: 22px;">إضافة مادة جديدة</h2>
+            <div class="form-group">
+                <label>اسم المادة</label>
+                <input type="text" class="form-control" id="newSubjectName" placeholder="أدخل اسم المادة">
+            </div>
+            <button class="btn btn-primary" onclick="addNewSubject()">إضافة</button>
+            <button class="btn btn-danger" onclick="closeAddSubjectModal()">إلغاء</button>
+        </div>
+    </div>
+
+    <script>
+        // ============ البيانات الأساسية ============
+        let users = [];
+        let students = [];
+        let teachers = [];
+        let assistants = [];
+        let results = [];
+        let messages = [];
+        let schedule = {};
+        let attendance = [];
+        let activityLog = [];
+        let announcements = [];
+        let currentUser = null;
+        let currentFile = null;
+        
+        let managerInfo = {
+            name: 'مدير النظام',
+            email: 'manager@alkawakib.edu',
+            phone: '+964 123 456 789'
+        };
+
+        // بيانات المدير
+        let adminCredentials = {
+            username: 'المدير',
+            password: 'المدير'
+        };
+
+        // المواد الدراسية
+        let subjects = [
+            "التربية الإسلامية",
+            "اللغة العربية",
+            "اللغة الانكليزية",
+            "اللغة الفرنسية",
+            "اللغة الكردية",
+            "الرياضيات",
+            "الفيزياء",
+            "الكيمياء",
+            "الأحياء",
+            "الاجتماعيات",
+            "جرائم حزب البعث البائد",
+            "التربية الفنية",
+            "التربية الرياضية",
+            "الحاسوب"
+        ];
+
+        // ============ دوال نافذة رابط التصدير ============
+        let currentExportUrl = '';
+
+        function showExportLink(format, type) {
+            // إنشاء رابط التصدير
+            const url = generateExportUrl(format, type);
+            if (!url) return;
+            
+            currentExportUrl = url;
+            document.getElementById('exportLinkBox').textContent = url;
+            document.getElementById('exportLinkModal').classList.add('active');
+        }
+
+        function closeExportLinkModal() {
+            document.getElementById('exportLinkModal').classList.remove('active');
+            if (currentExportUrl) {
+                URL.revokeObjectURL(currentExportUrl);
+                currentExportUrl = '';
+            }
+        }
+
+        function copyExportLink() {
+            const linkBox = document.getElementById('exportLinkBox');
+            const text = linkBox.textContent;
+            
+            // نسخ النص إلى الحافظة
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ تم نسخ الرابط بنجاح');
+            }).catch(() => {
+                // إذا فشلت النسخ التلقائي، نستخدم طريقة بديلة
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('✅ تم نسخ الرابط بنجاح');
+            });
+        }
+
+        function generateExportUrl(format, type) {
+            let filename = '';
+            let data = [];
+            let blob = null;
+            
+            if (type === 'students') {
+                filename = 'الطلاب';
+                data = students.map(s => ({
+                    'الرقم التسلسلي': s.serial,
+                    'الاسم': s.name,
+                    'المرحلة': s.grade,
+                    'فرنسي': s.studyFrench ? 'نعم' : 'لا',
+                    'كردي': s.studyKurdish ? 'نعم' : 'لا',
+                    'بعث': s.studyBaath ? 'نعم' : 'لا'
+                }));
+            } else if (type === 'teachers') {
+                filename = 'المدرسين';
+                data = teachers.map(t => ({
+                    'الرقم التسلسلي': t.serial,
+                    'الاسم': t.name,
+                    'الاختصاص': t.specialty,
+                    'المراحل': t.grades.join(' - ')
+                }));
+            } else if (type === 'results') {
+                filename = 'النتائج';
+                data = results.map(r => ({
+                    'الطالب': r.studentName,
+                    'المرحلة': r.grade,
+                    'المجموع': r.total,
+                    'المعدل': r.average.toFixed(2),
+                    'أعلى درجة': r.highest
+                }));
+            } else if (type === 'all') {
+                filename = 'جميع_البيانات';
+            }
+            
+            try {
+                if (format === 'excel') {
+                    let wb;
+                    if (type === 'all') {
+                        wb = XLSX.utils.book_new();
+                        
+                        const studentsWS = XLSX.utils.json_to_sheet(students.map(s => ({
+                            'الرقم التسلسلي': s.serial,
+                            'الاسم': s.name,
+                            'المرحلة': s.grade,
+                            'فرنسي': s.studyFrench ? 'نعم' : 'لا',
+                            'كردي': s.studyKurdish ? 'نعم' : 'لا',
+                            'بعث': s.studyBaath ? 'نعم' : 'لا'
+                        })));
+                        XLSX.utils.book_append_sheet(wb, studentsWS, 'الطلاب');
+                        
+                        const teachersWS = XLSX.utils.json_to_sheet(teachers.map(t => ({
+                            'الرقم التسلسلي': t.serial,
+                            'الاسم': t.name,
+                            'الاختصاص': t.specialty,
+                            'المراحل': t.grades.join(' - ')
+                        })));
+                        XLSX.utils.book_append_sheet(wb, teachersWS, 'المدرسين');
+                        
+                        const resultsWS = XLSX.utils.json_to_sheet(results.map(r => ({
+                            'الطالب': r.studentName,
+                            'المرحلة': r.grade,
+                            'المجموع': r.total,
+                            'المعدل': r.average.toFixed(2)
+                        })));
+                        XLSX.utils.book_append_sheet(wb, resultsWS, 'النتائج');
+                        
+                        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+                        blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+                    } else {
+                        wb = XLSX.utils.book_new();
+                        const ws = XLSX.utils.json_to_sheet(data);
+                        XLSX.utils.book_append_sheet(wb, ws, filename);
+                        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+                        blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+                    }
+                } else if (format === 'csv') {
+                    if (type === 'all') {
+                        alert('لتصدير جميع البيانات كـ CSV، يرجى استخدام خيار Excel');
+                        return null;
+                    }
+                    
+                    const ws = XLSX.utils.json_to_sheet(data);
+                    const csv = XLSX.utils.sheet_to_csv(ws);
+                    blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+                    
+                } else if (format === 'word') {
+                    let html = '<html><head><meta charset="UTF-8"><title>' + filename + '</title></head><body>';
+                    html += '<h1 style="text-align: center;">' + filename + '</h1>';
+                    html += '<table border="1" style="border-collapse: collapse; width: 100%; text-align: right;">';
+                    
+                    if (data.length > 0) {
+                        html += '<tr>';
+                        for (let key in data[0]) {
+                            html += '<th style="background: #ff8c00; color: white; padding: 8px;">' + key + '</th>';
+                        }
+                        html += '</tr>';
+                        
+                        data.forEach(item => {
+                            html += '<tr>';
+                            for (let key in item) {
+                                html += '<td style="padding: 8px; border-bottom: 1px solid #ddd;">' + item[key] + '</td>';
+                            }
+                            html += '</tr>';
+                        });
+                    }
+                    
+                    html += '</table></body></html>';
+                    blob = new Blob([html], { type: 'application/msword' });
+                    
+                } else if (format === 'pdf') {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    
+                    doc.setFont('helvetica');
+                    doc.setFontSize(18);
+                    doc.text(filename, 105, 20, { align: 'center' });
+                    
+                    doc.setFontSize(12);
+                    let y = 40;
+                    
+                    data.forEach((item, index) => {
+                        if (y > 280) {
+                            doc.addPage();
+                            y = 20;
+                        }
+                        
+                        let line = `${index+1}. `;
+                        for (let key in item) {
+                            line += `${key}: ${item[key]} | `;
+                        }
+                        doc.text(line, 10, y);
+                        y += 10;
+                    });
+                    
+                    blob = doc.output('blob');
+                }
+                
+                if (blob) {
+                    const url = URL.createObjectURL(blob);
+                    addActivityLog(`إنشاء رابط تصدير ${filename} إلى ${format.toUpperCase()}`);
+                    return url;
+                }
+                
+            } catch (error) {
+                console.error('خطأ في إنشاء رابط التصدير:', error);
+                alert('حدث خطأ أثناء إنشاء رابط التصدير. يرجى المحاولة مرة أخرى.');
+            }
+            
+            return null;
+        }
+
+        // دالة مساعدة لتحويل السلسلة إلى ArrayBuffer
+        function s2ab(s) {
+            const buf = new ArrayBuffer(s.length);
+            const view = new Uint8Array(buf);
+            for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+        // ============ تشغيل الصوت الترحيبي ============
+        function playWelcomeSound() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const welcomeText = 'أهلا و سهلا بثانوية الكواكب المختلطة للمتفوقين';
+                
+                const utterance = new SpeechSynthesisUtterance(welcomeText);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.1;
+                utterance.volume = 1;
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ============ حفظ حالة تسجيل الدخول ============
+        function saveLoginState(user, remember) {
+            if (remember) {
+                localStorage.setItem('rememberedUser', JSON.stringify({
+                    username: user.username,
+                    fullName: user.fullName,
+                    role: user.role
+                }));
+            }
+        }
+
+        function loadLoginState() {
+            const remembered = localStorage.getItem('rememberedUser');
+            if (remembered) {
+                try {
+                    const userData = JSON.parse(remembered);
+                    const user = users.find(u => u.username === userData.username);
+                    if (user) {
+                        return user;
+                    }
+                } catch (e) {
+                    console.error('خطأ في تحميل بيانات المستخدم:', e);
+                }
+            }
+            return null;
+        }
+
+        function clearLoginState() {
+            localStorage.removeItem('rememberedUser');
+        }
+
+        // ============ تهيئة النظام ============
+        function initializeSystem() {
+            loadFromStorage();
+            
+            // التأكد من وجود المستخدم الافتراضي (المدير)
+            const adminExists = users.some(u => u.username === 'المدير' && u.password === 'المدير');
+            if (!adminExists) {
+                users.push({
+                    id: users.length + 1,
+                    fullName: 'مدير النظام',
+                    username: 'المدير',
+                    password: 'المدير',
+                    role: 'مدير'
+                });
+            }
+            
+            saveToStorage();
+            console.log('النظام جاهز، المستخدمون:', users);
+            
+            // محاولة تسجيل الدخول التلقائي
+            const rememberedUser = loadLoginState();
+            if (rememberedUser) {
+                setTimeout(() => {
+                    login(rememberedUser.username, rememberedUser.password, true);
+                }, 100);
+            }
+        }
+
+        // ============ إدارة التخزين ============
+        function saveToStorage() {
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('students', JSON.stringify(students));
+            localStorage.setItem('teachers', JSON.stringify(teachers));
+            localStorage.setItem('assistants', JSON.stringify(assistants));
+            localStorage.setItem('results', JSON.stringify(results));
+            localStorage.setItem('messages', JSON.stringify(messages));
+            localStorage.setItem('schedule', JSON.stringify(schedule));
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+            localStorage.setItem('activityLog', JSON.stringify(activityLog));
+            localStorage.setItem('announcements', JSON.stringify(announcements));
+            localStorage.setItem('managerInfo', JSON.stringify(managerInfo));
+            localStorage.setItem('adminCredentials', JSON.stringify(adminCredentials));
+            localStorage.setItem('subjects', JSON.stringify(subjects));
+        }
+
+        function loadFromStorage() {
+            try {
+                users = JSON.parse(localStorage.getItem('users')) || [];
+                students = JSON.parse(localStorage.getItem('students')) || [];
+                teachers = JSON.parse(localStorage.getItem('teachers')) || [];
+                assistants = JSON.parse(localStorage.getItem('assistants')) || [];
+                results = JSON.parse(localStorage.getItem('results')) || [];
+                messages = JSON.parse(localStorage.getItem('messages')) || [];
+                schedule = JSON.parse(localStorage.getItem('schedule')) || {};
+                attendance = JSON.parse(localStorage.getItem('attendance')) || [];
+                activityLog = JSON.parse(localStorage.getItem('activityLog')) || [];
+                announcements = JSON.parse(localStorage.getItem('announcements')) || [];
+                managerInfo = JSON.parse(localStorage.getItem('managerInfo')) || managerInfo;
+                adminCredentials = JSON.parse(localStorage.getItem('adminCredentials')) || adminCredentials;
+                subjects = JSON.parse(localStorage.getItem('subjects')) || subjects;
+            } catch (e) {
+                console.error('خطأ في تحميل البيانات:', e);
+            }
+        }
+
+        // ============ توليد كلمة مرور عشوائية ============
+        function generatePassword(role) {
+            if (role === 'طالب') {
+                return 'Student@' + Math.floor(100 + Math.random() * 900);
+            } else if (role === 'مدرس') {
+                return 'Teacher@' + Math.floor(100 + Math.random() * 900);
+            } else if (role === 'معاون') {
+                return 'Assistant@' + Math.floor(100 + Math.random() * 900);
+            } else {
+                return 'User@' + Math.floor(100 + Math.random() * 900);
+            }
+        }
+
+        // ============ تسجيل الدخول ============
+        function login(username, password, isAuto = false) {
+            // إذا تم استدعاء الدالة بدون معاملات، نأخذ القيم من المدخلات
+            if (!isAuto) {
+                username = document.getElementById('username').value;
+                password = document.getElementById('password').value;
+            }
+            
+            const rememberMe = document.getElementById('rememberMe') ? document.getElementById('rememberMe').checked : true;
+
+            if (!username || !password) {
+                alert('الرجاء إدخال اسم المستخدم وكلمة المرور');
+                return;
+            }
+
+            console.log('محاولة تسجيل الدخول:', username, password);
+            console.log('المستخدمون المتاحون:', users);
+
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                
+                if (rememberMe) {
+                    saveLoginState(user, true);
+                }
+                
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('currentUserRole').textContent = user.role;
+                document.getElementById('currentUserName').textContent = user.fullName;
+                
+                addActivityLog(`تسجيل دخول: ${user.fullName} (${user.role})`);
+                
+                updateCounters();
+                renderStudents();
+                renderTeachers();
+                renderAssistants();
+                renderMessages();
+                loadSchedule();
+                loadActivityLog();
+                renderAllSubjects();
+                renderAnnouncements();
+                updateManagerInfoDisplay();
+                loadSubjectsCheckboxes();
+                renderResultsList();
+                loadTeacherSelect();
+                updateUIBasedOnRole();
+                
+                // تحديث إحصائيات التصدير
+                document.getElementById('exportStudentCount').textContent = students.length;
+                document.getElementById('exportTeacherCount').textContent = teachers.length;
+                document.getElementById('exportResultCount').textContent = results.length;
+                
+                alert(`مرحباً بك ${user.fullName}`);
+            } else {
+                if (!isAuto) {
+                    alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+                }
+            }
+        }
+
+        // ============ تسجيل الخروج ============
+        function logout() {
+            if (currentUser) {
+                addActivityLog(`تسجيل خروج: ${currentUser.fullName} (${currentUser.role})`);
+            }
+            currentUser = null;
+            clearLoginState();
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // ============ تحديث الواجهة حسب الصلاحية ============
+        function updateUIBasedOnRole() {
+            if (!currentUser) return;
+            
+            const tabsContainer = document.getElementById('tabsContainer');
+            const role = currentUser.role;
+            
+            // إخفاء جميع أقسام النتائج أولاً
+            document.getElementById('adminResultsView').style.display = 'none';
+            document.getElementById('teacherResultsView').style.display = 'none';
+            document.getElementById('studentResultsView').style.display = 'none';
+            
+            // تعريف التبويبات حسب الصلاحية
+            let tabs = [];
+            
+            if (role === 'مدير') {
+                tabs = [
+                    { id: 'dashboard', name: 'الرئيسية' },
+                    { id: 'admin', name: 'المدير' },
+                    { id: 'students', name: 'الطلاب' },
+                    { id: 'teachers', name: 'المدرسين' },
+                    { id: 'assistants', name: 'المعاونين' },
+                    { id: 'announcements', name: 'الإعلانات' },
+                    { id: 'results', name: 'النتائج' },
+                    { id: 'schedule', name: 'الجدول الدراسي' },
+                    { id: 'chat', name: 'قناة التواصل' },
+                    { id: 'subjects', name: 'المواد الدراسية' },
+                    { id: 'export', name: 'تصدير البيانات' }
+                ];
+                
+                // إظهار قسم النتائج للمدير
+                document.getElementById('adminResultsView').style.display = 'block';
+                
+                // إظهار عناصر التحكم في الجدول
+                document.getElementById('scheduleTeacher').style.display = 'block';
+                document.getElementById('addScheduleBtn').style.display = 'inline-block';
+                document.getElementById('editScheduleBtn').style.display = 'inline-block';
+                document.getElementById('deleteScheduleBtn').style.display = 'inline-block';
+                
+                // إضافة كلاس editable للخلايا
+                document.querySelectorAll('.schedule-cell').forEach(cell => {
+                    cell.classList.add('editable');
+                });
+                
+                // إظهار قناة التواصل مع إمكانية الإرسال
+                document.getElementById('chatInputArea').style.display = 'block';
+                document.getElementById('chatInput').disabled = false;
+                document.getElementById('chatSendBtn').disabled = false;
+                document.querySelectorAll('.attach-btn').forEach(btn => {
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.opacity = '1';
+                });
+                
+                // إظهار أعمدة الإجراءات
+                document.getElementById('studentsActionsHeader').style.display = 'table-cell';
+                document.getElementById('teachersActionsHeader').style.display = 'table-cell';
+                
+                // تمكين الأزرار
+                document.getElementById('addStudentBtn').disabled = false;
+                document.getElementById('addTeacherBtn').disabled = false;
+                
+            } else if (role === 'معاون') {
+                tabs = [
+                    { id: 'dashboard', name: 'الرئيسية' },
+                    { id: 'students', name: 'الطلاب' },
+                    { id: 'teachers', name: 'المدرسين' },
+                    { id: 'schedule', name: 'الجدول الدراسي' },
+                    { id: 'chat', name: 'قناة التواصل' },
+                    { id: 'export', name: 'تصدير البيانات' }
+                ];
+                
+                // إظهار عناصر التحكم في الجدول (المعاون يمكنه التعديل الآن)
+                document.getElementById('scheduleTeacher').style.display = 'block';
+                document.getElementById('addScheduleBtn').style.display = 'inline-block';
+                document.getElementById('editScheduleBtn').style.display = 'inline-block';
+                document.getElementById('deleteScheduleBtn').style.display = 'inline-block';
+                
+                // إضافة كلاس editable للخلايا للمعاون
+                document.querySelectorAll('.schedule-cell').forEach(cell => {
+                    cell.classList.add('editable');
+                });
+                
+                // إظهار قناة التواصل مع إمكانية الإرسال
+                document.getElementById('chatInputArea').style.display = 'block';
+                document.getElementById('chatInput').disabled = false;
+                document.getElementById('chatSendBtn').disabled = false;
+                document.querySelectorAll('.attach-btn').forEach(btn => {
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.opacity = '1';
+                });
+                
+                // إظهار أعمدة الإجراءات
+                document.getElementById('studentsActionsHeader').style.display = 'table-cell';
+                document.getElementById('teachersActionsHeader').style.display = 'table-cell';
+                
+                // تمكين أزرار الإضافة
+                document.getElementById('addStudentBtn').disabled = false;
+                document.getElementById('addTeacherBtn').disabled = false;
+                
+            } else if (role === 'مدرس') {
+                tabs = [
+                    { id: 'dashboard', name: 'الرئيسية' },
+                    { id: 'schedule', name: 'الجدول الدراسي' },
+                    { id: 'results', name: 'النتائج' },
+                    { id: 'chat', name: 'قناة التواصل' }
+                ];
+                
+                // إظهار قسم النتائج للمدرس
+                document.getElementById('teacherResultsView').style.display = 'block';
+                loadTeacherResults();
+                
+                // إخفاء عناصر التحكم في الجدول
+                document.getElementById('scheduleTeacher').style.display = 'none';
+                document.getElementById('addScheduleBtn').style.display = 'none';
+                document.getElementById('editScheduleBtn').style.display = 'none';
+                document.getElementById('deleteScheduleBtn').style.display = 'none';
+                
+                // إزالة قابلية التعديل من الخلايا
+                document.querySelectorAll('.schedule-cell').forEach(cell => {
+                    cell.classList.remove('editable');
+                });
+                
+                // إظهار قناة التواصل مع إمكانية الإرسال
+                document.getElementById('chatInputArea').style.display = 'block';
+                document.getElementById('chatInput').disabled = false;
+                document.getElementById('chatSendBtn').disabled = false;
+                document.querySelectorAll('.attach-btn').forEach(btn => {
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.opacity = '1';
+                });
+                
+                // إخفاء أعمدة الإجراءات
+                document.getElementById('studentsActionsHeader').style.display = 'none';
+                document.getElementById('teachersActionsHeader').style.display = 'none';
+                
+                // تعطيل أزرار الإضافة
+                document.getElementById('addStudentBtn').disabled = true;
+                document.getElementById('addTeacherBtn').disabled = true;
+                
+            } else if (role === 'طالب') {
+                // العثور على الصف الدراسي للطالب
+                const student = students.find(s => s.name === currentUser.fullName);
+                const studentGrade = student ? student.grade : '';
+                
+                tabs = [
+                    { id: 'dashboard', name: 'الرئيسية' },
+                    { id: 'schedule', name: 'الجدول الدراسي' },
+                    { id: 'results', name: 'النتائج' }
+                ];
+                
+                // إظهار قسم النتائج للطالب
+                document.getElementById('studentResultsView').style.display = 'block';
+                loadStudentResultForStudent();
+                
+                // إخفاء عناصر التحكم في الجدول
+                document.getElementById('scheduleTeacher').style.display = 'none';
+                document.getElementById('addScheduleBtn').style.display = 'none';
+                document.getElementById('editScheduleBtn').style.display = 'none';
+                document.getElementById('deleteScheduleBtn').style.display = 'none';
+                
+                // إزالة قابلية التعديل من الخلايا
+                document.querySelectorAll('.schedule-cell').forEach(cell => {
+                    cell.classList.remove('editable');
+                });
+                
+                // إخفاء قناة التواصل
+                document.getElementById('chatInputArea').style.display = 'none';
+                
+                // إخفاء أعمدة الإجراءات
+                document.getElementById('studentsActionsHeader').style.display = 'none';
+                document.getElementById('teachersActionsHeader').style.display = 'none';
+                
+                // تعطيل جميع الأزرار
+                document.querySelectorAll('button').forEach(btn => {
+                    if (!btn.classList.contains('logout-btn') && !btn.classList.contains('grade-btn')) {
+                        btn.disabled = true;
+                    }
+                });
+                
+                // تعطيل جميع المدخلات
+                document.querySelectorAll('input, select, textarea').forEach(input => {
+                    if (input.id !== 'username' && input.id !== 'password' && input.id !== 'rememberMe') {
+                        input.disabled = true;
+                    }
+                });
+                
+                // إذا كان للطالب صف محدد، نحدد اختيار الجدول على صفه
+                if (studentGrade) {
+                    const scheduleSelect = document.getElementById('scheduleGrade');
+                    if (scheduleSelect) {
+                        // البحث عن الخيار المطابق
+                        for (let i = 0; i < scheduleSelect.options.length; i++) {
+                            if (scheduleSelect.options[i].value === studentGrade) {
+                                scheduleSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                        loadSchedule();
+                    }
+                }
+                
+                // تعطيل اختيار المرحلة في الجدول
+                document.getElementById('scheduleGrade').disabled = true;
+            }
+            
+            // بناء التبويبات
+            tabsContainer.innerHTML = '';
+            tabs.forEach((tab, index) => {
+                const tabElement = document.createElement('div');
+                tabElement.className = `tab ${index === 0 ? 'active' : ''}`;
+                tabElement.setAttribute('onclick', `showSection('${tab.id}')`);
+                tabElement.textContent = tab.name;
+                tabsContainer.appendChild(tabElement);
+            });
+            
+            // إظهار القسم الأول
+            if (tabs.length > 0) {
+                showSection(tabs[0].id);
+            }
+            
+            // تحديث تعليمات الجدول
+            const instruction = document.getElementById('scheduleInstruction');
+            if (instruction) {
+                if (role === 'مدير' || role === 'معاون') {
+                    instruction.textContent = 'يمكنك النقر على أي خلية لتعديل الجدول';
+                } else if (role === 'مدرس') {
+                    instruction.textContent = 'يمكنك عرض الجدول فقط';
+                } else {
+                    instruction.textContent = 'يمكنك عرض جدول صفك فقط';
+                }
+            }
+        }
+
+        // ============ إظهار الأقسام ============
+        function showSection(section) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // ============ إضافة نشاط ============
+        function addActivityLog(action) {
+            const log = {
+                time: new Date().toLocaleString('ar-EG'),
+                action: action,
+                user: currentUser ? currentUser.fullName : 'system'
+            };
+            activityLog.unshift(log);
+            if (activityLog.length > 100) activityLog.pop();
+            saveToStorage();
+            loadActivityLog();
+        }
+
+        function loadActivityLog() {
+            const container = document.getElementById('activityLog');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            activityLog.slice(0, 30).forEach(log => {
+                const div = document.createElement('div');
+                div.className = 'log-item';
+                div.innerHTML = `
+                    <span class="log-time">${log.time}</span>
+                    <span>${log.action}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function clearActivityLog() {
+            if (confirm('هل أنت متأكد من حذف جميع سجلات النشاطات؟')) {
+                activityLog = [];
+                saveToStorage();
+                loadActivityLog();
+                addActivityLog('تم حذف سجل النشاطات');
+            }
+        }
+
+        // ============ معلومات المدير ============
+        function updateManagerInfoDisplay() {
+            document.getElementById('managerName').textContent = managerInfo.name;
+            document.getElementById('managerEmail').textContent = managerInfo.email;
+            document.getElementById('managerPhone').textContent = managerInfo.phone;
+            
+            document.getElementById('editManagerName').value = managerInfo.name;
+            document.getElementById('editManagerEmail').value = managerInfo.email;
+            document.getElementById('editManagerPhone').value = managerInfo.phone;
+        }
+
+        function saveManagerInfo() {
+            managerInfo.name = document.getElementById('editManagerName').value;
+            managerInfo.email = document.getElementById('editManagerEmail').value;
+            managerInfo.phone = document.getElementById('editManagerPhone').value;
+            
+            saveToStorage();
+            updateManagerInfoDisplay();
+            addActivityLog('تحديث معلومات المدير');
+            alert('تم حفظ معلومات المدير بنجاح');
+        }
+
+        // ============ تحديث العدادات ============
+        function updateCounters() {
+            document.getElementById('adminStudentCount').textContent = students.length;
+            document.getElementById('adminTeacherCount').textContent = teachers.length;
+            document.getElementById('adminAssistantCount').textContent = assistants.length;
+        }
+
+        // ============ إدارة الإعلانات ============
+        function toggleAnnouncementFields() {
+            const type = document.getElementById('announcementType').value;
+            
+            document.getElementById('announcementTextField').style.display = 'none';
+            document.getElementById('announcementImageField').style.display = 'none';
+            document.getElementById('announcementVideoField').style.display = 'none';
+            document.getElementById('announcementFileField').style.display = 'none';
+            
+            if (type === 'text') {
+                document.getElementById('announcementTextField').style.display = 'block';
+            } else if (type === 'image') {
+                document.getElementById('announcementImageField').style.display = 'block';
+            } else if (type === 'video') {
+                document.getElementById('announcementVideoField').style.display = 'block';
+            } else if (type === 'file') {
+                document.getElementById('announcementFileField').style.display = 'block';
+            }
+        }
+
+        function addAnnouncement() {
+            const title = document.getElementById('announcementTitle').value;
+            const type = document.getElementById('announcementType').value;
+            
+            if (!title) {
+                alert('الرجاء إدخال عنوان الإعلان');
+                return;
+            }
+
+            let content = '';
+            if (type === 'text') {
+                content = document.getElementById('announcementText').value;
+                if (!content) {
+                    alert('الرجاء إدخال نص الإعلان');
+                    return;
+                }
+            } else if (type === 'image') {
+                content = document.getElementById('announcementImage').value;
+            } else if (type === 'video') {
+                content = document.getElementById('announcementVideo').value;
+            } else if (type === 'file') {
+                content = document.getElementById('announcementFile').value;
+            }
+
+            const announcement = {
+                id: announcements.length + 1,
+                title: title,
+                type: type,
+                content: content,
+                date: new Date().toLocaleDateString('ar-EG'),
+                time: new Date().toLocaleTimeString('ar-EG'),
+                postedBy: currentUser ? currentUser.fullName : 'المدير'
+            };
+
+            announcements.unshift(announcement);
+            saveToStorage();
+            renderAnnouncements();
+            addActivityLog(`إضافة إعلان: ${title}`);
+
+            document.getElementById('announcementTitle').value = '';
+            document.getElementById('announcementText').value = '';
+            document.getElementById('announcementImage').value = '';
+            document.getElementById('announcementVideo').value = '';
+            document.getElementById('announcementFile').value = '';
+
+            alert('تم نشر الإعلان بنجاح');
+        }
+
+        function renderAnnouncements() {
+            const container = document.getElementById('announcementsList');
+            const publicContainer = document.getElementById('publicAnnouncements');
+            
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            announcements.forEach(ann => {
+                let contentHtml = '';
+                
+                if (ann.type === 'text') {
+                    contentHtml = `<p>${ann.content}</p>`;
+                } else if (ann.type === 'image') {
+                    contentHtml = `<img src="${ann.content}" alt="${ann.title}" style="max-width:100%; max-height:180px;">`;
+                } else if (ann.type === 'video') {
+                    let videoId = ann.content.split('v=')[1];
+                    if (videoId) {
+                        videoId = videoId.split('&')[0];
+                        contentHtml = `<iframe width="100%" height="180" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+                    } else {
+                        contentHtml = `<a href="${ann.content}" target="_blank">مشاهدة الفيديو</a>`;
+                    }
+                } else if (ann.type === 'file') {
+                    contentHtml = `<a href="${ann.content}" target="_blank" class="btn btn-primary btn-sm">تحميل الملف</a>`;
+                }
+
+                const div = document.createElement('div');
+                div.className = 'announcement-card';
+                div.innerHTML = `
+                    <div class="announcement-header">
+                        ${ann.title}
+                        <small style="float: left;">${ann.date}</small>
+                    </div>
+                    <div class="announcement-body">
+                        ${contentHtml}
+                        <small style="color: #999; display: block; margin-top: 8px;">بواسطة: ${ann.postedBy}</small>
+                        ${currentUser?.role === 'مدير' ? 
+                            `<button class="btn btn-danger btn-sm" onclick="deleteAnnouncement(${ann.id})" style="margin-top: 8px;">حذف</button>` : 
+                            ''}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            if (publicContainer) {
+                publicContainer.innerHTML = container.innerHTML;
+            }
+        }
+
+        function deleteAnnouncement(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الإعلان؟')) {
+                announcements = announcements.filter(a => a.id !== id);
+                saveToStorage();
+                renderAnnouncements();
+                addActivityLog('حذف إعلان');
+            }
+        }
+
+        // ============ إدارة الطلاب ============
+        function addStudent() {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                alert('لا تملك الصلاحية');
+                return;
+            }
+
+            const name = document.getElementById('studentName').value;
+            const grade = document.getElementById('studentGrade').value;
+            const studyFrench = document.getElementById('studyFrench').checked;
+            const studyKurdish = document.getElementById('studyKurdish').checked;
+            const studyBaath = document.getElementById('studyBaath').checked;
+
+            if (!name) {
+                alert('يرجى إدخال الاسم');
+                return;
+            }
+
+            const serial = `STU${String(students.length + 1).padStart(4, '0')}`;
+            const username = name;
+            const password = generatePassword('طالب');
+
+            const student = {
+                id: students.length + 1,
+                serial: serial,
+                name: name,
+                grade: grade,
+                studyFrench: studyFrench,
+                studyKurdish: studyKurdish,
+                studyBaath: studyBaath,
+                date: new Date().toLocaleDateString('ar-EG'),
+                regDate: new Date().toISOString(),
+                username: username,
+                password: password
+            };
+
+            students.push(student);
+            
+            users.push({
+                id: users.length + 1,
+                fullName: name,
+                username: username,
+                password: password,
+                role: 'طالب'
+            });
+            
+            saveToStorage();
+            renderStudents();
+            updateCounters();
+            addActivityLog(`إضافة طالب: ${name}`);
+
+            document.getElementById('studentName').value = '';
+            document.getElementById('studyFrench').checked = false;
+            document.getElementById('studyKurdish').checked = false;
+            document.getElementById('studyBaath').checked = false;
+
+            alert(`تم إضافة الطالب بنجاح\nالرقم التسلسلي: ${serial}\nاسم المستخدم: ${username}\nكلمة المرور: ${password}`);
+        }
+
+        function renderStudents(filter = '') {
+            const tbody = document.getElementById('studentsList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            let filteredStudents = students;
+            if (filter) {
+                filteredStudents = students.filter(s => 
+                    s.name.includes(filter) || s.serial.includes(filter)
+                );
+            }
+
+            filteredStudents.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+
+            filteredStudents.forEach(student => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${student.serial}</td>
+                    <td>${student.name}</td>
+                    <td>${student.grade}</td>
+                    <td><span class="badge ${student.studyFrench ? 'badge-success' : 'badge-warning'}">${student.studyFrench ? 'نعم' : 'لا'}</span></td>
+                    <td><span class="badge ${student.studyKurdish ? 'badge-success' : 'badge-warning'}">${student.studyKurdish ? 'نعم' : 'لا'}</span></td>
+                    <td><span class="badge ${student.studyBaath ? 'badge-success' : 'badge-warning'}">${student.studyBaath ? 'نعم' : 'لا'}</span></td>
+                    <td>${student.username || '---'}</td>
+                    <td>${student.password || '---'}</td>
+                    <td>
+                        ${currentUser?.role === 'مدير' || currentUser?.role === 'معاون' ? 
+                            `<button class="btn btn-danger btn-sm" onclick="deleteStudent(${student.id})">حذف</button>` : 
+                            ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterStudents(grade) {
+            const buttons = document.querySelectorAll('#studentGradeFilter .grade-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const tbody = document.getElementById('studentsList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            let filteredStudents = grade === 'all' ? students : students.filter(s => s.grade.includes(grade));
+
+            filteredStudents.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+
+            filteredStudents.forEach(student => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${student.serial}</td>
+                    <td>${student.name}</td>
+                    <td>${student.grade}</td>
+                    <td><span class="badge ${student.studyFrench ? 'badge-success' : 'badge-warning'}">${student.studyFrench ? 'نعم' : 'لا'}</span></td>
+                    <td><span class="badge ${student.studyKurdish ? 'badge-success' : 'badge-warning'}">${student.studyKurdish ? 'نعم' : 'لا'}</span></td>
+                    <td><span class="badge ${student.studyBaath ? 'badge-success' : 'badge-warning'}">${student.studyBaath ? 'نعم' : 'لا'}</span></td>
+                    <td>${student.username || '---'}</td>
+                    <td>${student.password || '---'}</td>
+                    <td>
+                        ${currentUser?.role === 'مدير' || currentUser?.role === 'معاون' ? 
+                            `<button class="btn btn-danger btn-sm" onclick="deleteStudent(${student.id})">حذف</button>` : 
+                            ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteStudent(id) {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                alert('لا تملك الصلاحية');
+                return;
+            }
+            
+            if (confirm('هل أنت متأكد من حذف هذا الطالب؟')) {
+                const student = students.find(s => s.id === id);
+                students = students.filter(s => s.id !== id);
+                users = users.filter(u => u.username !== student.username);
+                results = results.filter(r => r.studentId !== id);
+                saveToStorage();
+                renderStudents();
+                updateCounters();
+                addActivityLog(`حذف طالب: ${student.name}`);
+            }
+        }
+
+        // ============ إدارة المدرسين ============
+        function addTeacher() {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                alert('لا تملك الصلاحية');
+                return;
+            }
+
+            const name = document.getElementById('teacherName').value;
+            const specialty = document.getElementById('teacherSpecialty').value;
+            
+            const gradeCheckboxes = document.querySelectorAll('#teachers input[type="checkbox"]');
+            const grades = [];
+            gradeCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    grades.push(cb.value);
+                }
+            });
+            
+            const teacherSubjects = [];
+            document.querySelectorAll('#teacherSubjects input:checked').forEach(cb => {
+                teacherSubjects.push(cb.value);
+            });
+
+            if (!name || grades.length === 0 || teacherSubjects.length === 0) {
+                alert('يرجى إدخال جميع البيانات واختيار المراحل والمواد');
+                return;
+            }
+
+            const serial = `TCH${String(teachers.length + 1).padStart(4, '0')}`;
+            const username = name;
+            const password = generatePassword('مدرس');
+
+            const teacher = {
+                id: teachers.length + 1,
+                serial: serial,
+                name: name,
+                specialty: specialty,
+                grades: grades,
+                subjects: teacherSubjects,
+                date: new Date().toLocaleDateString('ar-EG'),
+                username: username,
+                password: password
+            };
+
+            teachers.push(teacher);
+            
+            users.push({
+                id: users.length + 1,
+                fullName: name,
+                username: username,
+                password: password,
+                role: 'مدرس'
+            });
+            
+            saveToStorage();
+            renderTeachers();
+            updateCounters();
+            addActivityLog(`إضافة مدرس: ${name}`);
+            loadTeacherSelect();
+
+            document.getElementById('teacherName').value = '';
+            document.querySelectorAll('#teachers input[type="checkbox"]').forEach(cb => cb.checked = false);
+            
+            alert(`تم إضافة المدرس بنجاح\nالرقم التسلسلي: ${serial}\nاسم المستخدم: ${username}\nكلمة المرور: ${password}`);
+        }
+
+        function renderTeachers() {
+            const tbody = document.getElementById('teachersList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            teachers.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+
+            teachers.forEach(teacher => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${teacher.serial}</td>
+                    <td>${teacher.name}</td>
+                    <td>${teacher.specialty}</td>
+                    <td>${teacher.grades.join(' - ')}</td>
+                    <td>${teacher.subjects ? teacher.subjects.slice(0, 3).join(', ') + '...' : ''}</td>
+                    <td>
+                        ${currentUser?.role === 'مدير' || currentUser?.role === 'معاون' ? 
+                            `<button class="btn btn-danger btn-sm" onclick="deleteTeacher(${teacher.id})">حذف</button>` : 
+                            ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteTeacher(id) {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                alert('لا تملك الصلاحية');
+                return;
+            }
+            
+            if (confirm('هل أنت متأكد من حذف هذا المدرس؟')) {
+                const teacher = teachers.find(t => t.id === id);
+                teachers = teachers.filter(t => t.id !== id);
+                users = users.filter(u => u.username !== teacher.username);
+                saveToStorage();
+                renderTeachers();
+                updateCounters();
+                addActivityLog(`حذف مدرس: ${teacher.name}`);
+            }
+        }
+
+        function loadTeacherSelect() {
+            const select = document.getElementById('scheduleTeacher');
+            if (!select) return;
+            
+            select.innerHTML = '<option value="">اختر المدرس</option>';
+            
+            teachers.forEach(teacher => {
+                const option = document.createElement('option');
+                option.value = teacher.id;
+                option.textContent = teacher.name;
+                select.appendChild(option);
+            });
+        }
+
+        // ============ إدارة المعاونين ============
+        function addAssistant() {
+            if (currentUser.role !== 'مدير') {
+                alert('لا تملك الصلاحية');
+                return;
+            }
+
+            const name = document.getElementById('assistantName').value;
+            const tasks = document.getElementById('assistantTasks').value;
+
+            if (!name || !tasks) {
+                alert('يرجى إدخال جميع البيانات');
+                return;
+            }
+
+            const serial = `AST${String(assistants.length + 1).padStart(4, '0')}`;
+            const username = name;
+            const password = generatePassword('معاون');
+
+            const assistant = {
+                id: assistants.length + 1,
+                serial: serial,
+                name: name,
+                tasks: tasks,
+                date: new Date().toLocaleDateString('ar-EG'),
+                username: username,
+                password: password
+            };
+
+            assistants.push(assistant);
+            
+            users.push({
+                id: users.length + 1,
+                fullName: name,
+                username: username,
+                password: password,
+                role: 'معاون'
+            });
+            
+            saveToStorage();
+            renderAssistants();
+            updateCounters();
+            addActivityLog(`إضافة معاون: ${name}`);
+
+            document.getElementById('assistantName').value = '';
+            document.getElementById('assistantTasks').value = '';
+
+            alert(`تم إضافة المعاون بنجاح\nالرقم التسلسلي: ${serial}\nاسم المستخدم: ${username}\nكلمة المرور: ${password}`);
+        }
+
+        function renderAssistants() {
+            const tbody = document.getElementById('assistantsList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            assistants.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+
+            assistants.forEach(assistant => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${assistant.serial}</td>
+                    <td>${assistant.name}</td>
+                    <td>${assistant.tasks}</td>
+                    <td>${assistant.username || '---'}</td>
+                    <td>${assistant.password || '---'}</td>
+                    <td>
+                        ${currentUser?.role === 'مدير' ? 
+                            `<button class="btn btn-danger btn-sm" onclick="deleteAssistant(${assistant.id})">حذف</button>` : 
+                            ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteAssistant(id) {
+            if (currentUser.role !== 'مدير') {
+                alert('لا تملك الصلاحية');
+                return;
+            }
+            
+            if (confirm('هل أنت متأكد من حذف هذا المعاون؟')) {
+                const assistant = assistants.find(a => a.id === id);
+                assistants = assistants.filter(a => a.id !== id);
+                users = users.filter(u => u.username !== assistant.username);
+                saveToStorage();
+                renderAssistants();
+                updateCounters();
+                addActivityLog(`حذف معاون: ${assistant.name}`);
+            }
+        }
+
+        // ============ المواد الدراسية ============
+        function renderAllSubjects() {
+            const container = document.getElementById('allSubjects');
+            if (!container) return;
+            
+            let html = '';
+            subjects.forEach(subject => {
+                html += `
+                    <div class="subject-item">
+                        <label style="flex: 1;">${subject}</label>
+                        ${currentUser?.role === 'مدير' ? 
+                            `<button class="btn btn-danger btn-sm" onclick="deleteSubject('${subject}')">حذف</button>` : 
+                            ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function loadSubjectsCheckboxes() {
+            const container = document.getElementById('teacherSubjects');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            subjects.forEach(subject => {
+                const div = document.createElement('div');
+                div.className = 'subject-item';
+                div.innerHTML = `
+                    <input type="checkbox" value="${subject}"> 
+                    <label>${subject}</label>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function showAddSubjectModal() {
+            document.getElementById('addSubjectModal').classList.add('active');
+        }
+
+        function closeAddSubjectModal() {
+            document.getElementById('addSubjectModal').classList.remove('active');
+            document.getElementById('newSubjectName').value = '';
+        }
+
+        function addNewSubject() {
+            const newSubject = document.getElementById('newSubjectName').value.trim();
+            
+            if (!newSubject) {
+                alert('الرجاء إدخال اسم المادة');
+                return;
+            }
+
+            if (subjects.includes(newSubject)) {
+                alert('هذه المادة موجودة بالفعل');
+                return;
+            }
+
+            subjects.push(newSubject);
+            saveToStorage();
+            renderAllSubjects();
+            loadSubjectsCheckboxes();
+            closeAddSubjectModal();
+            addActivityLog(`إضافة مادة جديدة: ${newSubject}`);
+            alert('تم إضافة المادة بنجاح');
+        }
+
+        function deleteSubject(subject) {
+            if (confirm(`هل أنت متأكد من حذف مادة "${subject}"؟`)) {
+                subjects = subjects.filter(s => s !== subject);
+                saveToStorage();
+                renderAllSubjects();
+                loadSubjectsCheckboxes();
+                addActivityLog(`حذف مادة: ${subject}`);
+            }
+        }
+
+        // ============ إدارة النتائج ============
+        function loadStudentsForResults() {
+            const grade = document.getElementById('resultGrade').value;
+            const select = document.getElementById('resultStudent');
+            select.innerHTML = '<option value="">اختر الطالب</option>';
+
+            if (grade) {
+                students.filter(s => s.grade === grade).forEach(student => {
+                    const option = document.createElement('option');
+                    option.value = student.id;
+                    option.textContent = student.name;
+                    select.appendChild(option);
+                });
+            }
+        }
+
+        function loadStudentResult() {
+            const studentId = parseInt(document.getElementById('resultStudent').value);
+            const form = document.getElementById('resultForm');
+            const subjectsDiv = document.getElementById('resultSubjects');
+            
+            if (!studentId) {
+                form.style.display = 'none';
+                return;
+            }
+
+            form.style.display = 'block';
+            subjectsDiv.innerHTML = '';
+
+            const student = students.find(s => s.id === studentId);
+            
+            let studentSubjects = [...subjects];
+            
+            if (student.grade.includes('الرابع')) {
+                if (!studentSubjects.includes('جرائم حزب البعث البائد')) {
+                    studentSubjects.push('جرائم حزب البعث البائد');
+                }
+                if (!studentSubjects.includes('اللغة الكردية')) {
+                    studentSubjects.push('اللغة الكردية');
+                }
+            }
+            
+            if (student.grade.includes('الخامس')) {
+                if (!studentSubjects.includes('اللغة الكردية')) {
+                    studentSubjects.push('اللغة الكردية');
+                }
+            }
+
+            const existingResult = results.find(r => r.studentId === studentId);
+
+            studentSubjects.forEach(subject => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `
+                    <label>${subject}</label>
+                    <input type="number" class="result-input" id="score_${subject}" placeholder="الدرجة" value="${existingResult ? existingResult.scores[subject] || 0 : 0}" min="0" max="100" onchange="calculateOverall()">
+                `;
+                subjectsDiv.appendChild(div);
+            });
+
+            if (existingResult) {
+                calculateOverall();
+            }
+        }
+
+        function calculateOverall() {
+            let total = 0;
+            let count = 0;
+            let highest = 0;
+
+            document.querySelectorAll('#resultSubjects .result-input').forEach(input => {
+                const val = parseFloat(input.value) || 0;
+                total += val;
+                if (val > 0) count++;
+                if (val > highest) highest = val;
+            });
+
+            const average = count > 0 ? (total / count).toFixed(2) : 0;
+            
+            document.getElementById('totalSum').textContent = total;
+            document.getElementById('subjectCount').textContent = count;
+            document.getElementById('overallAverage').textContent = average;
+            document.getElementById('highestScore').textContent = highest;
+        }
+
+        function saveResult() {
+            if (currentUser.role !== 'مدير') {
+                alert('فقط المدير يمكنه إضافة النتائج');
+                return;
+            }
+
+            const studentId = parseInt(document.getElementById('resultStudent').value);
+            if (!studentId) {
+                alert('اختر الطالب أولاً');
+                return;
+            }
+
+            const student = students.find(s => s.id === studentId);
+            const result = {
+                studentId: studentId,
+                studentName: student.name,
+                grade: student.grade,
+                scores: {},
+                total: 0,
+                average: 0,
+                highest: 0
+            };
+
+            let total = 0;
+            let count = 0;
+            let highest = 0;
+
+            document.querySelectorAll('#resultSubjects .result-item').forEach(item => {
+                const subject = item.querySelector('label').textContent;
+                const score = parseFloat(item.querySelector('.result-input').value) || 0;
+                result.scores[subject] = score;
+                total += score;
+                if (score > 0) count++;
+                if (score > highest) highest = score;
+            });
+
+            result.total = total;
+            result.average = count > 0 ? total / count : 0;
+            result.highest = highest;
+
+            const index = results.findIndex(r => r.studentId === studentId);
+            if (index >= 0) {
+                results[index] = result;
+            } else {
+                results.push(result);
+            }
+
+            saveToStorage();
+            renderResultsList();
+            alert('تم حفظ النتيجة بنجاح');
+        }
+
+        function renderResultsList() {
+            const tbody = document.getElementById('resultsList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            const sortedResults = [...results].sort((a, b) => a.studentName.localeCompare(b.studentName, 'ar'));
+
+            sortedResults.forEach(result => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${result.studentName}</td>
+                    <td>${result.grade}</td>
+                    <td>${result.total}</td>
+                    <td>${result.average.toFixed(2)}</td>
+                    <td>${result.highest}</td>
+                    <td>
+                        ${currentUser?.role === 'مدير' ? 
+                            `<button class="btn btn-info btn-sm" onclick="viewResultDetails(${result.studentId})">عرض</button>` : 
+                            ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // تحميل نتائج المدرس
+        function loadTeacherResults() {
+            const tbody = document.getElementById('teacherResultsList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+            
+            // افتراضياً نعرض جميع النتائج للمدرس
+            // يمكن تعديل هذا المنطق حسب احتياجاتك
+            const sortedResults = [...results].sort((a, b) => a.studentName.localeCompare(b.studentName, 'ar'));
+
+            sortedResults.forEach(result => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${result.studentName}</td>
+                    <td>${result.grade}</td>
+                    <td>${result.total}</td>
+                    <td>${result.average.toFixed(2)}</td>
+                    <td>${result.highest}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // تحميل نتيجة الطالب
+        function loadStudentResultForStudent() {
+            const container = document.getElementById('studentResultDetails');
+            if (!container) return;
+            
+            const student = students.find(s => s.name === currentUser.fullName);
+            if (!student) {
+                container.innerHTML = '<p style="text-align: center;">لم يتم العثور على بياناتك</p>';
+                return;
+            }
+            
+            const result = results.find(r => r.studentId === student.id);
+            
+            if (!result) {
+                container.innerHTML = '<p style="text-align: center;">لا توجد نتائج بعد</p>';
+                return;
+            }
+            
+            let html = `
+                <div class="result-detail">
+                    <div class="result-detail-item">
+                        <label>المجموع</label>
+                        <value>${result.total}</value>
+                    </div>
+                    <div class="result-detail-item">
+                        <label>المعدل</label>
+                        <value>${result.average.toFixed(2)}</value>
+                    </div>
+                    <div class="result-detail-item">
+                        <label>أعلى درجة</label>
+                        <value>${result.highest}</value>
+                    </div>
+                </div>
+                
+                <div class="subject-scores">
+                    <h4>الدرجات التفصيلية</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>المادة</th>
+                                <th>الدرجة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            for (let subject in result.scores) {
+                html += `
+                    <tr>
+                        <td>${subject}</td>
+                        <td>${result.scores[subject]}</td>
+                    </tr>
+                `;
+            }
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function filterResults(grade) {
+            const buttons = document.querySelectorAll('#resultGradeFilter .grade-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const tbody = document.getElementById('resultsList');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            let filteredResults = grade === 'all' ? results : results.filter(r => r.grade.includes(grade));
+
+            filteredResults.sort((a, b) => a.studentName.localeCompare(b.studentName, 'ar'));
+
+            filteredResults.forEach(result => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${result.studentName}</td>
+                    <td>${result.grade}</td>
+                    <td>${result.total}</td>
+                    <td>${result.average.toFixed(2)}</td>
+                    <td>${result.highest}</td>
+                    <td>
+                        ${currentUser?.role === 'مدير' ? 
+                            `<button class="btn btn-info btn-sm" onclick="viewResultDetails(${result.studentId})">عرض</button>` : 
+                            ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function viewResultDetails(studentId) {
+            const result = results.find(r => r.studentId === studentId);
+            if (!result) return;
+
+            let details = `نتيجة الطالب: ${result.studentName}\n\n`;
+            for (let subject in result.scores) {
+                details += `${subject}: ${result.scores[subject]}\n`;
+            }
+            details += `\nالمجموع: ${result.total}`;
+            details += `\nالمعدل: ${result.average.toFixed(2)}`;
+            details += `\nأعلى درجة: ${result.highest}`;
+
+            alert(details);
+        }
+
+        // ============ الجدول الدراسي ============
+        function loadSchedule() {
+            const grade = document.getElementById('scheduleGrade')?.value || 'الاول المتوسط أ';
+            const container = document.getElementById('scheduleContainer');
+            if (!container) return;
+            
+            const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+
+            if (!schedule[grade]) {
+                schedule[grade] = {};
+            }
+
+            let html = '<div class="schedule-grid">';
+            
+            html += '<div class="schedule-header">اليوم / الحصة</div>';
+            for (let i = 1; i <= 6; i++) {
+                html += `<div class="schedule-header">الحصة ${i}</div>`;
+            }
+
+            days.forEach(day => {
+                html += `<div class="schedule-time">${day}</div>`;
+                for (let i = 0; i < 6; i++) {
+                    const key = `${day}_${i}`;
+                    const cell = schedule[grade][key] || { subject: '', teacher: '' };
+                    const editable = (currentUser?.role === 'مدير' || currentUser?.role === 'معاون') ? 'editable' : '';
+                    html += `
+                        <div class="schedule-cell ${editable}" onclick="editScheduleCell('${grade}', '${day}', ${i})">
+                            <div class="subject">${cell.subject || '-----'}</div>
+                            <div class="teacher">${cell.teacher || ''}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function editScheduleCell(grade, day, period) {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                return;
+            }
+            
+            const subject = prompt('أدخل اسم المادة:');
+            if (subject) {
+                const teacherSelect = document.getElementById('scheduleTeacher');
+                const teacherId = teacherSelect.value;
+                const teacher = teachers.find(t => t.id == teacherId);
+                
+                if (!schedule[grade]) {
+                    schedule[grade] = {};
+                }
+                
+                schedule[grade][`${day}_${period}`] = {
+                    subject: subject,
+                    teacher: teacher ? teacher.name : ''
+                };
+                
+                saveToStorage();
+                loadSchedule();
+                addActivityLog(`تعديل الجدول: ${grade} - ${day} الحصة ${period+1} بواسطة ${currentUser.fullName}`);
+            }
+        }
+
+        function addScheduleClass() {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                return;
+            }
+            alert('انقر على أي خلية في الجدول لإضافة حصة جديدة');
+        }
+
+        function editSchedule() {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                return;
+            }
+            alert('انقر على أي خلية لتعديلها');
+        }
+
+        function deleteScheduleClass() {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون') {
+                return;
+            }
+            
+            if (confirm('هل أنت متأكد من حذف جميع الحصص لهذه المرحلة؟')) {
+                const grade = document.getElementById('scheduleGrade').value;
+                schedule[grade] = {};
+                saveToStorage();
+                loadSchedule();
+                addActivityLog(`حذف جميع حصص ${grade} بواسطة ${currentUser.fullName}`);
+            }
+        }
+
+        // ============ قناة التواصل المتطورة ============
+        function handleFileUpload(input, type) {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون' && currentUser.role !== 'مدرس') {
+                return;
+            }
+            
+            const file = input.files[0];
+            if (!file) return;
+            
+            currentFile = {
+                type: type,
+                file: file,
+                url: URL.createObjectURL(file),
+                name: file.name
+            };
+            
+            const preview = document.getElementById('filePreview');
+            preview.style.display = 'flex';
+            
+            let html = '';
+            if (type === 'image') {
+                html = `<img src="${currentFile.url}" alt="معاينة">`;
+            } else if (type === 'video') {
+                html = `<video src="${currentFile.url}" controls></video>`;
+            } else if (type === 'audio') {
+                html = `<audio src="${currentFile.url}" controls></audio>`;
+            } else {
+                html = `<span>📎 ${currentFile.name}</span>`;
+            }
+            
+            preview.innerHTML = html + `
+                <div class="file-info">${file.name}</div>
+                <span class="remove-file" onclick="removeFile()">✖</span>
+            `;
+        }
+
+        function removeFile() {
+            currentFile = null;
+            document.getElementById('filePreview').style.display = 'none';
+            document.getElementById('filePreview').innerHTML = '';
+            document.querySelectorAll('input[type="file"]').forEach(input => {
+                input.value = '';
+            });
+        }
+
+        function deleteMessage(messageId) {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون' && currentUser.role !== 'مدرس') {
+                alert('لا تملك الصلاحية لحذف الرسائل');
+                return;
+            }
+            
+            if (confirm('هل أنت متأكد من حذف هذه الرسالة؟')) {
+                messages = messages.filter(msg => msg.id !== messageId);
+                saveToStorage();
+                renderMessages();
+                addActivityLog(`حذف رسالة من قناة التواصل بواسطة ${currentUser.fullName}`);
+            }
+        }
+
+        function sendMessage() {
+            if (currentUser.role !== 'مدير' && currentUser.role !== 'معاون' && currentUser.role !== 'مدرس') {
+                return;
+            }
+            
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+
+            if ((text || currentFile) && currentUser) {
+                const message = {
+                    id: messages.length + 1,
+                    user: currentUser.fullName,
+                    role: currentUser.role,
+                    time: new Date().toLocaleTimeString('ar-EG'),
+                    date: new Date().toLocaleDateString('ar-EG')
+                };
+                
+                if (text) {
+                    message.text = text;
+                }
+                
+                if (currentFile) {
+                    message.attachment = {
+                        type: currentFile.type,
+                        url: currentFile.url,
+                        name: currentFile.name
+                    };
+                }
+
+                messages.push(message);
+                saveToStorage();
+                renderMessages();
+                input.value = '';
+                removeFile();
+                addActivityLog(`رسالة من ${currentUser.fullName}`);
+            }
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('chatMessages');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            messages.slice(-50).forEach(msg => {
+                const avatar = msg.user.charAt(0);
+                const div = document.createElement('div');
+                div.className = `message ${msg.user === currentUser?.fullName ? 'own' : ''}`;
+                
+                let content = `<div class="message-header">
+                        <div class="message-avatar">${avatar}</div>
+                        <span>${msg.user}</span>
+                        <span>(${msg.role})</span>
+                        <span>${msg.time}</span>
+                    </div>`;
+                
+                if (msg.text) {
+                    content += `<div class="message-content">${msg.text}</div>`;
+                }
+                
+                if (msg.attachment) {
+                    if (msg.attachment.type === 'image') {
+                        content += `<img src="${msg.attachment.url}" alt="صورة" style="max-width:200px; max-height:200px; border-radius:10px; margin-top:10px;">`;
+                    } else if (msg.attachment.type === 'video') {
+                        content += `<video src="${msg.attachment.url}" controls style="max-width:200px; max-height:200px; margin-top:10px;"></video>`;
+                    } else if (msg.attachment.type === 'audio') {
+                        content += `<audio src="${msg.attachment.url}" controls style="margin-top:10px;"></audio>`;
+                    } else {
+                        content += `<div style="margin-top:10px;"><a href="${msg.attachment.url}" target="_blank">📎 ${msg.attachment.name}</a></div>`;
+                    }
+                }
+                
+                content += `<div class="message-time">${msg.date}</div>`;
+                
+                // إضافة زر الحذف إذا كان المستخدم لديه صلاحية
+                if (currentUser.role === 'مدير' || currentUser.role === 'معاون' || currentUser.role === 'مدرس') {
+                    content += `<span class="delete-message" onclick="deleteMessage(${msg.id})">✖</span>`;
+                }
+                
+                div.innerHTML = content;
+                container.appendChild(div);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ============ نافذة تغيير كلمة المرور ============
+        function showChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.add('active');
+        }
+
+        function closeChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.remove('active');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+        }
+
+        function changePassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('الرجاء إدخال جميع الحقول');
+                return;
+            }
+
+            if (currentPassword !== adminCredentials.password) {
+                alert('كلمة المرور الحالية غير صحيحة');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('كلمة المرور الجديدة غير متطابقة');
+                return;
+            }
+
+            if (newPassword.length < 3) {
+                alert('كلمة المرور يجب أن تكون 3 أحرف على الأقل');
+                return;
+            }
+
+            adminCredentials.password = newPassword;
+            
+            const adminUser = users.find(u => u.role === 'مدير');
+            if (adminUser) {
+                adminUser.password = newPassword;
+            }
+            
+            saveToStorage();
+            addActivityLog('تغيير كلمة المرور');
+            
+            closeChangePasswordModal();
+            alert('تم تغيير كلمة المرور بنجاح');
+        }
+
+        // ============ النسخ الاحتياطي ============
+        function backupData() {
+            const data = {
+                users: users,
+                students: students,
+                teachers: teachers,
+                assistants: assistants,
+                results: results,
+                messages: messages,
+                schedule: schedule,
+                attendance: attendance,
+                activityLog: activityLog,
+                announcements: announcements,
+                managerInfo: managerInfo,
+                adminCredentials: adminCredentials,
+                subjects: subjects,
+                backupDate: new Date().toISOString()
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup_ثانوية_الكواكب_${new Date().toLocaleDateString('ar-EG').replace(/\//g, '-')}.json`;
+            a.click();
+            addActivityLog('إنشاء نسخة احتياطية');
+        }
+
+        function restoreData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        users = data.users || [];
+                        students = data.students || [];
+                        teachers = data.teachers || [];
+                        assistants = data.assistants || [];
+                        results = data.results || [];
+                        messages = data.messages || [];
+                        schedule = data.schedule || {};
+                        attendance = data.attendance || [];
+                        activityLog = data.activityLog || [];
+                        announcements = data.announcements || [];
+                        managerInfo = data.managerInfo || managerInfo;
+                        adminCredentials = data.adminCredentials || adminCredentials;
+                        subjects = data.subjects || subjects;
+                        saveToStorage();
+                        alert('تم استعادة البيانات بنجاح');
+                        addActivityLog('استعادة نسخة احتياطية');
+                        location.reload();
+                    } catch (err) {
+                        alert('خطأ في ملف الاستعادة: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // ============ التهيئة عند تحميل الصفحة ============
+        window.onload = function() {
+            initializeSystem();
+            loadSubjectsCheckboxes();
+            renderAllSubjects();
+            renderResultsList();
+            
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            
+            setTimeout(() => {
+                playWelcomeSound();
+            }, 500);
+        };
+    </script>
+</body>
+</html>
